@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="view-transition" content="same-origin" />
+    <title>Terms</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      const isMenu = () => !!document.querySelector(".menu-overlay");
+      window.addEventListener("pageswap", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "from-menu" : "to-menu");
+      });
+      window.addEventListener("pagereveal", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "to-menu" : "from-menu");
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="menu.html" class="menu-btn" aria-label="Open menu">☰</a>
+    </header>
+    <main>
+      <h1>Terms</h1>
+    </main>
+    <script src="js/main.js"></script>
+  </body>
+</html>

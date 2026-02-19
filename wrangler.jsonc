@@ -16,6 +16,13 @@
 	},
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "aerostack_db",
+			"database_name": "aerostack-db",
+			"database_id": "a919456a-1916-4f3f-939e-4c2bf06166e5"
+		}
 	]
 	/**
 	 * Smart Placement
