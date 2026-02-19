@@ -8,7 +8,7 @@ async function loadRecipes() {
   try {
     const res = await fetch("/recipes"); // Worker endpoint
     if (!res.ok) throw new Error("Failed to fetch recipes");
-    const data = await res.json();
+    const data = (await res.json()).data;
 
     // Optional: map fields if API uses slightly different names
     RECIPES = data.map((r) => ({
