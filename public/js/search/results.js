@@ -1,9 +1,11 @@
-export function renderResults(data, params) {
+export function renderResults(response, params) {
+  const { data } = response;
+
   const container = document.getElementById("results");
   container.innerHTML = "";
   const fragment = document.createDocumentFragment();
 
-  data.data.forEach((item) => {
+  data.forEach((item) => {
     const card = document.createElement("recipe-card");
 
     card.setAttribute("recipe-id", item.id);
@@ -20,7 +22,4 @@ export function renderResults(data, params) {
   });
 
   container.appendChild(fragment);
-
-  // Update pagination display
-  document.getElementById("pageDisplay").textContent = `Page ${params.page}`;
 }
