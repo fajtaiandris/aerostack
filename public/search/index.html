@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Page</title>
+  </head>
+  <body>
+    <h1>Search</h1>
+
+    <!-- Search Input -->
+    <input type="text" id="searchInput" placeholder="Search..." />
+
+    <!-- Filters -->
+    <select id="tagFilter">
+      <option value="">All Tags</option>
+      <option value="morning">Morning</option>
+      <option value="quick">Quick</option>
+    </select>
+
+    <select id="limitFilter">
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+    </select>
+
+    <!-- Results -->
+    <div id="results"></div>
+
+    <!-- Pagination -->
+    <div>
+      <button id="prevPage">Prev</button>
+      <span id="pageDisplay">Page 1</span>
+      <button id="nextPage">Next</button>
+    </div>
+
+    <!-- Load Main Entry Point -->
+    <script type="module" src="../js/search/recipe-card.js"></script>
+    <script type="module" src="../js/search/main.js"></script>
+  </body>
+</html>

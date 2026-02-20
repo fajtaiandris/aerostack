@@ -5,10 +5,9 @@ class RecipeCard extends HTMLElement {
       "title",
       "author",
       "date",
-      "votes",
       "description",
-      "user-vote",
-      "tags", // NEW
+      "tags",
+      "slug",
     ];
   }
 
@@ -119,12 +118,11 @@ class RecipeCard extends HTMLElement {
   }
 
   render() {
-    const userVote = this.getAttribute("user-vote") || "";
-    const votes = this.getAttribute("votes") || "0";
     const title = this.getAttribute("title") || "";
     const author = this.getAttribute("author") || "";
     const date = this.getAttribute("date") || "";
-    const recipeId = this.getAttribute("recipe-id") || "";
+    // const recipeId = this.getAttribute("recipe-id") || "";
+    const slug = this.getAttribute("slug") || "";
     const tags = this._parseTags();
 
     const tagsHTML = tags
@@ -134,10 +132,9 @@ class RecipeCard extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${this._styles}</style>
       <div class="card">
-        <vote-widget votes="${votes}" user-vote="${userVote}" recipe-id="${recipeId}"></vote-widget>
         <div class="body">
           <div class="title">
-            <a href="recipe.html?id=${recipeId}">${title}</a>
+            <a href="/recipe/${slug}">${title}</a>
           </div>
           <div class="meta">
             <span>by ${author}</span>
