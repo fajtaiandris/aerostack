@@ -3,39 +3,235 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search Page</title>
+    <meta name="view-transition" content="same-origin" />
+    <title>AeroStack Recipes</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script>
+      const isMenu = () => !!document.querySelector(".menu-overlay");
+      window.addEventListener("pageswap", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "from-menu" : "to-menu");
+      });
+      window.addEventListener("pagereveal", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "to-menu" : "from-menu");
+      });
+    </script>
   </head>
   <body>
-    <h1>Search</h1>
+    <header>
+      <a href="/menu.html" class="menu-btn" aria-label="Open menu">☰</a>
+    </header>
+    <main class="recipes-page">
+      <div class="recipes-container">
+        <h1><span class="highlight">AeroStack</span> Recipes</h1>
+        <div class="filters-bar">
+          <div class="filter-group filter-search">
+            <label for="searchInput">Search</label>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by title or author..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="filter-group filter-tags-group">
+            <label>Filters</label>
+            <button type="button" class="tags-toggle" id="tags-toggle">
+              <span class="tags-toggle-label">All</span>
+              <span class="tags-arrow"></span>
+            </button>
+            <div class="tags-dropdown" id="tags-dropdown">
+              <div class="tags-section">
+                <div class="tags-section-title">Roast</div>
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="roast:light"
+                    data-label="Light"
+                  /><span>Light</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="roast:medium"
+                    data-label="Medium"
+                  /><span>Medium</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="roast:dark"
+                    data-label="Dark"
+                  /><span>Dark</span></label
+                >
+              </div>
+              <div class="tags-section">
+                <div class="tags-section-title">Method</div>
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="method:standard"
+                    data-label="Standard"
+                  /><span>Standard</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="method:inverted"
+                    data-label="Inverted"
+                  /><span>Inverted</span></label
+                >
+              </div>
+              <div class="tags-section">
+                <div class="tags-section-title">Grind</div>
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="grind:extra-fine"
+                    data-label="Extra fine"
+                  /><span>Extra fine</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="grind:fine"
+                    data-label="Fine"
+                  /><span>Fine</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="grind:medium-fine"
+                    data-label="Med-fine"
+                  /><span>Medium-fine</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="grind:medium"
+                    data-label="Medium"
+                  /><span>Medium</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="grind:medium-coarse"
+                    data-label="Med-coarse"
+                  /><span>Medium-coarse</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="grind:coarse"
+                    data-label="Coarse"
+                  /><span>Coarse</span></label
+                >
+              </div>
+              <div class="tags-section">
+                <div class="tags-section-title">Other</div>
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="other:paper-filter"
+                    data-label="Paper filter"
+                  /><span>Paper filter</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="other:metal-filter"
+                    data-label="Metal filter"
+                  /><span>Metal filter</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="other:fruit-filter"
+                    data-label="Fruit filter"
+                  /><span>Fruit filter</span></label
+                >
+                <label class="tag-option"
+                  ><input
+                    type="checkbox"
+                    name="tag"
+                    value="other:ice"
+                    data-label="Ice"
+                  /><span>Ice</span></label
+                >
+              </div>
+              <div class="tags-section tags-clear-section">
+                <button type="button" class="tags-clear" id="tags-clear">
+                  Clear filters
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="filter-group filter-sort-group">
+            <label>Sort by</label>
+            <button type="button" class="sort-toggle" id="sort-toggle">
+              <span class="sort-toggle-label">Top</span>
+              <span class="tags-arrow"></span>
+            </button>
+            <div class="sort-dropdown" id="sort-dropdown">
+              <div class="sort-option active" data-value="top">Top</div>
+              <div class="sort-option" data-value="new">New</div>
+            </div>
+          </div>
 
-    <!-- Search Input -->
-    <input type="text" id="searchInput" placeholder="Search..." />
+          <select id="tagFilter">
+            <option value="">All Tags</option>
+            <option value="morning">Morning</option>
+            <option value="quick">Quick</option>
+          </select>
 
-    <!-- Filters -->
-    <select id="tagFilter">
-      <option value="">All Tags</option>
-      <option value="morning">Morning</option>
-      <option value="quick">Quick</option>
-    </select>
+          <select id="limitFilter">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
 
-    <select id="limitFilter">
-      <option value="5">5</option>
-      <option value="10" selected>10</option>
-      <option value="20">20</option>
-    </select>
+        <div class="featured-banner">
+          <div class="featured-badge">Featured</div>
+          <div class="featured-content">
+            <h2>Got a weird one?</h2>
+            <p>
+              We want your strangest, most unhinged AeroPress recipe. Upside
+              down? Ice cubes mid-brew? Four minutes of stirring?
+              <strong>The community votes</strong>, and the quirkiest concoction
+              gets permanently pinned right here for all to witness.
+            </p>
+            <a href="new-recipe.html" class="featured-cta">Add your recipe</a>
+          </div>
+        </div>
 
-    <!-- Results -->
-    <div id="results"></div>
+        <div id="results" class="recipe-list"></div>
 
-    <!-- Pagination -->
-    <div>
-      <button id="prevPage">Prev</button>
-      <span id="pageDisplay">Page 1</span>
-      <button id="nextPage">Next</button>
-    </div>
+        <div class="pagination">
+          <button class="pagination-prev" id="prevPage">←</button>
+          <span id="pageDisplay" class="page-numbers"></span>
+          <button class="pagination-next" id="nextPage">→</button>
+        </div>
+      </div>
+    </main>
 
     <!-- Load Main Entry Point -->
-    <script type="module" src="../js/search/recipe-card.js"></script>
-    <script type="module" src="../js/search/main.js"></script>
+    <script type="module" src="/js/search/recipe-card.js"></script>
+    <script type="module" src="/js/search/main.js"></script>
   </body>
 </html>
