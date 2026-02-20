@@ -159,6 +159,13 @@ nav ul li a:hover {
   margin: 0 auto;
 }
 
+.recipes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+}
+
 .recipes-container h1 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
@@ -420,6 +427,7 @@ nav ul li a:hover {
   color: var(--color-text);
   height: 2rem;
   outline: none;
+  min-width: 200px;
 }
 
 .filter-group input[type="text"]::placeholder {
@@ -433,6 +441,12 @@ nav ul li a:hover {
 /* Tags dropdown */
 .filter-tags-group {
   position: relative;
+}
+
+.filter-second-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .tags-toggle {

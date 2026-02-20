@@ -19,12 +19,12 @@
     </script>
   </head>
   <body>
-    <header>
-      <a href="/menu.html" class="menu-btn" aria-label="Open menu">☰</a>
-    </header>
     <main class="recipes-page">
       <div class="recipes-container">
-        <h1><span class="highlight">AeroStack</span> Recipes</h1>
+        <div class="recipes-header">
+          <h1><span class="highlight">AeroStack</span> Recipes</h1>
+          <a href="/menu.html" class="menu-btn" aria-label="Open menu">☰</a>
+        </div>
         <div class="filters-bar">
           <div class="filter-group filter-search">
             <label for="searchInput">Search</label>
@@ -35,91 +35,93 @@
               autocomplete="off"
             />
           </div>
-          <div class="filter-group filter-tags-group">
-            <label>Filters</label>
-            <button type="button" class="tags-toggle" id="tags-toggle">
-              <span class="tags-toggle-label">All</span>
-              <span class="tags-arrow"></span>
-            </button>
-            <div class="tags-dropdown" id="tags-dropdown">
-              <div class="tags-section">
-                <div class="tags-section-title">Roast</div>
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="light-roast"
-                    data-label="Light roast"
-                  /><span>Light roast</span></label
-                >
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="medium-roast"
-                    data-label="Medium roast"
-                  /><span>Medium roast</span></label
-                >
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="dark-roast"
-                    data-label="Dark roast"
-                  /><span>Dark roast</span></label
-                >
-              </div>
-              <div class="tags-section">
-                <div class="tags-section-title">Other</div>
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="espresso"
-                    data-label="Espresso"
-                  /><span>Espresso</span></label
-                >
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="floral"
-                    data-label="Floral"
-                  /><span>Floral</span></label
-                >
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="strong"
-                    data-label="Strong"
-                  /><span>Strong</span></label
-                >
-                <label class="tag-option"
-                  ><input
-                    type="checkbox"
-                    name="tag"
-                    value="quick"
-                    data-label="Quick"
-                  /><span>Quick</span></label
-                >
-              </div>
-              <div class="tags-section tags-clear-section">
-                <button type="button" class="tags-clear" id="tags-clear">
-                  Clear filters
-                </button>
+          <div class="filter-second-row">
+            <div class="filter-group filter-tags-group">
+              <label>Filters</label>
+              <button type="button" class="tags-toggle" id="tags-toggle">
+                <span class="tags-toggle-label">All</span>
+                <span class="tags-arrow"></span>
+              </button>
+              <div class="tags-dropdown" id="tags-dropdown">
+                <div class="tags-section">
+                  <div class="tags-section-title">Roast</div>
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="light-roast"
+                      data-label="Light roast"
+                    /><span>Light roast</span></label
+                  >
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="medium-roast"
+                      data-label="Medium roast"
+                    /><span>Medium roast</span></label
+                  >
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="dark-roast"
+                      data-label="Dark roast"
+                    /><span>Dark roast</span></label
+                  >
+                </div>
+                <div class="tags-section">
+                  <div class="tags-section-title">Other</div>
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="espresso"
+                      data-label="Espresso"
+                    /><span>Espresso</span></label
+                  >
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="floral"
+                      data-label="Floral"
+                    /><span>Floral</span></label
+                  >
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="strong"
+                      data-label="Strong"
+                    /><span>Strong</span></label
+                  >
+                  <label class="tag-option"
+                    ><input
+                      type="checkbox"
+                      name="tag"
+                      value="quick"
+                      data-label="Quick"
+                    /><span>Quick</span></label
+                  >
+                </div>
+                <div class="tags-section tags-clear-section">
+                  <button type="button" class="tags-clear" id="tags-clear">
+                    Clear filters
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="filter-group filter-sort-group">
-            <label>Sort by</label>
-            <button type="button" class="sort-toggle" id="sort-toggle">
-              <span class="sort-toggle-label">New</span>
-              <span class="tags-arrow"></span>
-            </button>
-            <div class="sort-dropdown" id="sort-dropdown">
-              <div class="sort-option active" data-value="new">New</div>
-              <div class="sort-option" data-value="top">Top</div>
+            <div class="filter-group filter-sort-group">
+              <label>Sort by</label>
+              <button type="button" class="sort-toggle" id="sort-toggle">
+                <span class="sort-toggle-label">New</span>
+                <span class="tags-arrow"></span>
+              </button>
+              <div class="sort-dropdown" id="sort-dropdown">
+                <div class="sort-option active" data-value="new">New</div>
+                <div class="sort-option" data-value="top">Top</div>
+              </div>
             </div>
           </div>
         </div>
