@@ -114,12 +114,12 @@
           <div class="filter-group filter-sort-group">
             <label>Sort by</label>
             <button type="button" class="sort-toggle" id="sort-toggle">
-              <span class="sort-toggle-label">Top</span>
+              <span class="sort-toggle-label">New</span>
               <span class="tags-arrow"></span>
             </button>
             <div class="sort-dropdown" id="sort-dropdown">
-              <div class="sort-option active" data-value="top">Top</div>
-              <div class="sort-option" data-value="new">New</div>
+              <div class="sort-option active" data-value="new">New</div>
+              <div class="sort-option" data-value="top">Top</div>
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@
 
         <div id="results" class="recipe-list"></div>
 
-        <div class="pagination">
+        <div class="pagination" id="pagination">
           <button class="pagination-prev" id="prev-page">←</button>
           <span id="page-numbers" class="page-numbers"></span>
           <button class="pagination-next" id="next-page">→</button>

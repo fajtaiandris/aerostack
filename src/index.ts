@@ -91,7 +91,7 @@ app.get("/recipes", async (c) => {
 
   const countRes = await countStmt.bind(...params, ...tagFilterSql.tagParams).first();
   const total = Number(countRes?.total || 0);
-  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const totalPages = total === 0 ? 0 : Math.ceil(total / perPage);
 
   // If page is beyond end, return empty data but valid meta
   if (offset >= total && total > 0) {

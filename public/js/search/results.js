@@ -5,6 +5,18 @@ export function renderResults(response, params) {
   container.innerHTML = "";
   const fragment = document.createDocumentFragment();
 
+  if (data.length === 0) {
+    container.innerHTML = `
+      <div class="recipe-not-found">
+        <h1>Way too specific...</h1>
+        <p>There's not a single recipe matching your search.</p>
+        <a href="/search" class="recipe-back-link">← Clear search</a>
+      </div>`;
+    container.dataset.empty = "true";
+    return;
+  }
+
+  container.dataset.empty = "false";
   data.forEach((item) => {
     const card = document.createElement("recipe-card");
 

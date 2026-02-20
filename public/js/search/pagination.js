@@ -27,8 +27,16 @@ export const renderPagination = (currentPage, totalPages) => {
   const prevBtn = document.getElementById("prev-page");
   const nextBtn = document.getElementById("next-page");
   const pageNumbers = document.getElementById("page-numbers");
+  const container = document.getElementById("pagination");
 
   pageNumbers.innerHTML = "";
+
+  if (totalPages < 1) {
+    container.dataset.hidden = "true";
+    return;
+  }
+
+  container.dataset.hidden = "false";
 
   // How many numbers to show around current
   const windowSize = 2;

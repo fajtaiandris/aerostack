@@ -585,6 +585,10 @@ nav ul li a:hover {
   overflow: hidden;
 }
 
+.recipe-list[data-empty="true"] {
+  background: none;
+}
+
 /* Featured Banner */
 .featured-banner {
   position: relative;
@@ -671,6 +675,10 @@ nav ul li a:hover {
   gap: 0.35rem;
   margin-top: 1.25rem;
   font-size: 0.82rem;
+}
+
+.pagination[data-hidden="true"] {
+  display: none;
 }
 
 .pagination-prev,
