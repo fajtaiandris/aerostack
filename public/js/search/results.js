@@ -6,13 +6,7 @@ export function renderResults(response, params) {
   const fragment = document.createDocumentFragment();
 
   if (data.length === 0) {
-    container.innerHTML = `
-      <div class="recipe-not-found">
-        <h1>Way too specific...</h1>
-        <p>There's not a single recipe matching your search.</p>
-        <a href="/search" class="recipe-back-link">← Clear search</a>
-      </div>`;
-    container.dataset.empty = "true";
+    renderNoResults();
     return;
   }
 
@@ -34,4 +28,26 @@ export function renderResults(response, params) {
   });
 
   container.appendChild(fragment);
+}
+
+function renderNoResults() {
+  const container = document.getElementById("results");
+  container.innerHTML = `
+      <div class="recipe-not-found">
+        <h1>Way too specific...</h1>
+        <p>There's not a single recipe matching your search.</p>
+        <a href="/search" class="recipe-back-link">← Clear search</a>
+      </div>`;
+  container.dataset.empty = "true";
+}
+
+export function renderError() {
+  const container = document.getElementById("results");
+  container.innerHTML = `
+    <div class="recipe-not-found">
+      <h1>This site is having trouble :(</h1>
+      <p>We couldn't fetch the results of your search.</p>
+      <a href="/search" class="recipe-back-link">↻ Maybe now it works</a>
+    </div>`;
+  container.dataset.empty = "true";
 }

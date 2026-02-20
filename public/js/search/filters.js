@@ -1,15 +1,10 @@
 import { updateURL, getSearchParams } from "./utils.js";
-import { renderResults } from "./results.js";
-import { renderPagination } from "./pagination.js";
-import { fetchResults } from "./api.js";
+import { fetchAndRender } from "./fetchAndRender.js";
 
 export function onFilterChange(newParams) {
   const params = { ...getSearchParams(), ...newParams };
   updateURL(params);
-  fetchResults(params).then((data) => {
-    (renderResults(data, params),
-      renderPagination(params.page, data.total_pages));
-  });
+  fetchAndRender(params);
 }
 
 export const setupFilters = () => {

@@ -1,7 +1,6 @@
-import { fetchResults } from "./api.js";
-import { renderResults } from "./results.js";
 import { onFilterChange } from "./filters.js";
 import { updateURL, getSearchParams } from "./utils.js";
+import { fetchAndRender } from "./fetchAndRender.js";
 
 export const setupPagination = () => {
   document.getElementById("prev-page").addEventListener("click", () => {
@@ -17,10 +16,7 @@ export const setupPagination = () => {
 function onPageChange(newPage) {
   const params = { ...getSearchParams(), page: newPage };
   updateURL(params);
-  fetchResults(params).then((data) => {
-    renderResults(data, params);
-    renderPagination(params.page, data.total_pages);
-  });
+  fetchAndRender(params);
 }
 
 export const renderPagination = (currentPage, totalPages) => {

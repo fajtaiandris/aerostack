@@ -589,6 +589,10 @@ nav ul li a:hover {
   background: none;
 }
 
+.recipe-list:empty {
+  display: none;
+}
+
 /* Featured Banner */
 .featured-banner {
   position: relative;
