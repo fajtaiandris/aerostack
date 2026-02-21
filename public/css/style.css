@@ -199,26 +199,36 @@ nav ul li a:hover {
   position: relative;
 }
 
-.editor-title {
+.editor-title,
+.editor-author {
   display: block;
   width: 100%;
   background: none;
   border: none;
   border-bottom: 1px solid var(--color-border);
   padding: 1.25rem 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
   font-family: inherit;
   color: var(--color-text);
   outline: none;
   border-radius: 10px 10px 0 0;
 }
 
-.editor-title::placeholder {
+.editor-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.editor-author {
+  font-size: 1rem;
+}
+
+.editor-title::placeholder,
+.editor-author::placeholder {
   color: var(--color-muted);
 }
 
-.editor-title:focus {
+.editor-title:focus,
+.editor-author:focus {
   border-bottom-color: var(--color-accent);
 }
 

@@ -14,7 +14,7 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
       return c.json({ error: "Missing required fields" }, 400);
     }
 
-    const slug = body.slug ?? generateSlug(body.title);
+    const slug = body.slug ?? generateSlug(body.title, body.author);
     const tags = (body.tags ?? []).map(t => t.trim()).filter(Boolean);
 
     const now = new Date().toISOString();
@@ -26,7 +26,7 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
       .first();
 
     if (existing) {
-      return c.json({ error: "Slug already exists" }, 409);
+      return c.json({ error: "This recipe title is already taken" }, 409);
     }
 
     // ---- Insert recipe ----
@@ -85,8 +85,8 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   }
 };
 
-function generateSlug(title: string) {
-  return title
+function generateSlug(title: string, author: string) {
+  return `${title}-by-${author}`
     .toLowerCase()
     .trim()
     .replace(/[^\w\s-]/g, "")

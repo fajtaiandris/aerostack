@@ -1,6 +1,6 @@
 const editor = new EditorJS({
   holder: "editorjs",
-  placeholder: "Write your recipe here...",
+  placeholder: "Instructions for your recipe",
   inlineToolbar: ["link", "bold", "italic"],
   tools: {
     header: {
@@ -21,12 +21,9 @@ const editor = new EditorJS({
 
 document.getElementById("submit-recipe").addEventListener("click", async () => {
   const titleInput = document.getElementById("recipe-title");
+  const authorInput = document.getElementById("recipe-author");
   const title = titleInput.value.trim();
-
-  if (!title) {
-    alert("Title is required");
-    return;
-  }
+  const author = authorInput.value.trim();
 
   const data = await editor.save();
 
@@ -42,8 +39,8 @@ document.getElementById("submit-recipe").addEventListener("click", async () => {
       },
       body: JSON.stringify({
         title,
-        author: "Andris", // replace with logged-in user later
-        markdown: JSON.stringify(data), // 👈 important
+        author,
+        markdown: JSON.stringify(data),
         tags,
       }),
     });
