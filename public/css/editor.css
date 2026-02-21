@@ -193,3 +193,9 @@
 .ct__content {
   color: var(--color-text) !important;
 }
+
+#editorjs b,
+#editorjs strong,
+#editorjs a {
+  color: #ef5350;
+}

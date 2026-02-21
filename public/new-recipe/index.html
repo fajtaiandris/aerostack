@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="view-transition" content="same-origin" />
+    <title>New Recipe</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/editor.css" />
+    <script>
+      const isMenu = () => !!document.querySelector(".menu-overlay");
+      window.addEventListener("pageswap", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "from-menu" : "to-menu");
+      });
+      window.addEventListener("pagereveal", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "to-menu" : "from-menu");
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="/menu.html" class="menu-btn" aria-label="Open menu">☰</a>
+    </header>
+    <main class="editor-page">
+      <div class="editor-container">
+        <div class="editor-card">
+          <input
+            type="text"
+            id="recipe-title"
+            class="editor-title"
+            placeholder="Recipe title..."
+            autocomplete="off"
+          />
+          <div id="editorjs"></div>
+        </div>
+
+        <div class="tag-picker">
+          <div class="tag-picker-group">
+            <span class="tag-picker-label">Roast</span>
+            <div class="tag-picker-chips">
+              <label class="tag-chip"
+                ><input
+                  type="checkbox"
+                  name="recipe-tag"
+                  value="light-roast"
+                /><span>light-roast</span></label
+              >
+              <label class="tag-chip"
+                ><input
+                  type="checkbox"
+                  name="recipe-tag"
+                  value="medium-roast"
+                /><span>medium-roast</span></label
+              >
+              <label class="tag-chip"
+                ><input
+                  type="checkbox"
+                  name="recipe-tag"
+                  value="dark-roast"
+                /><span>dark-roast</span></label
+              >
+            </div>
+          </div>
+          <div class="tag-picker-group">
+            <span class="tag-picker-label">Other</span>
+            <div class="tag-picker-chips">
+              <label class="tag-chip"
+                ><input
+                  type="checkbox"
+                  name="recipe-tag"
+                  value="espresso"
+                /><span>espresso</span></label
+              >
+              <label class="tag-chip"
+                ><input type="checkbox" name="recipe-tag" value="floral" /><span
+                  >floral</span
+                ></label
+              >
+              <label class="tag-chip"
+                ><input type="checkbox" name="recipe-tag" value="strong" /><span
+                  >strong</span
+                ></label
+              >
+              <label class="tag-chip"
+                ><input type="checkbox" name="recipe-tag" value="quick" /><span
+                  >quick</span
+                ></label
+              >
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="editor-submit" id="submit-recipe">
+          Submit
+        </button>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2/dist/editorjs.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2/dist/header.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@2/dist/editorjs-list.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1/dist/delimiter.umd.js"></script>
+    <script src="/new-recipe/main.js"></script>
+    <script src="/menu.js"></script>
+  </body>
+</html>

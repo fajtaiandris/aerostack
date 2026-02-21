@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.referrer && document.referrer !== "") {
           history.back();
         } else {
-          window.location.href = "index.html";
+          window.location.href = "/";
         }
       };
 

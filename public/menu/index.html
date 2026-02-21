@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="view-transition" content="same-origin" />
-    <title>Terms</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Menu</title>
+    <link rel="stylesheet" href="/css/style.css" />
     <script>
       const isMenu = () => !!document.querySelector(".menu-overlay");
       window.addEventListener("pageswap", (e) => {
@@ -19,12 +19,21 @@
     </script>
   </head>
   <body>
-    <header>
-      <a href="menu.html" class="menu-btn" aria-label="Open menu">☰</a>
-    </header>
-    <main>
-      <h1>Terms</h1>
-    </main>
-    <script src="js/main.js"></script>
+    <div class="menu-overlay">
+      <header>
+        <a href="#" class="close-btn" id="closeMenu" aria-label="Close menu"
+          >✕</a
+        >
+      </header>
+      <nav>
+        <ul>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/new-recipe">Add one</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+    <script src="/menu.js"></script>
   </body>
 </html>

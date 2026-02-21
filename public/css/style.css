@@ -871,7 +871,8 @@ nav ul li a:hover {
 }
 
 .rv-body b,
-.rv-body strong {
+.rv-body strong,
+.rv-body a {
   color: #ef5350;
 }
 
@@ -916,6 +917,35 @@ nav ul li a:hover {
 .rv-comments .giscus,
 .rv-comments .giscus-frame {
   width: 100%;
+}
+
+.error {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #1b1b1d;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.rv-body .error h1 {
+  font-size: 1.75rem !important;
+  margin-bottom: 0.5rem;
+}
+
+.rv-body .error p {
+  color: var(--color-muted) !important;
+  margin-bottom: 1.5rem;
+}
+
+.rv-body .recipe-back-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.codex-editor__redactor {
+  padding-bottom: 0 !important;
 }
 
 /* ---- View Transitions ---- */
