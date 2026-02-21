@@ -33,11 +33,15 @@ import { Context } from "hono";
     .first();
 
   if (!recipeRow) {
-    return c.text('Recipe not found', 404);
+    const query = slug.replace(/[-_]/g, " ");
+    const url = new URL("/search", c.req.url);
+    url.searchParams.set("q", query);
+
+    return c.redirect(url.toString(), 302);
   }
 
   const asset = await c.env.ASSETS.fetch(
-    new Request(new URL("/recipe-template.html", c.req.url))
+    new Request(new URL("/recipe/_recipe.template.html", c.req.url))
   )
 
   let html = await asset.text()

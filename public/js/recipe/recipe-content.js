@@ -16,10 +16,50 @@ class RecipeContent extends HTMLElement {
     this.render();
   }
 
+  renderError() {
+    this.shadowRoot.innerHTML = `
+    <style>
+        :host {
+            display: block;
+            font-family: system-ui, sans-serif;
+            text-align: center;
+        }
+        .error {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #1b1b1d;
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+        }
+
+        .error h1 {
+            font-size: 1.75rem !important;
+            margin-bottom: 0.5rem;
+        }
+
+        .error p {
+            color: var(--color-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .recipe-back-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.15s;
+        }
+    </style>
+    <div class="error">
+        <h1>Oh no, we messed up! :(</h1>
+        <p>This page is not loading properly for now.</p>
+        <a href="/search" class="recipe-back-link">← Find another that might</a>
+    </div>`;
+  }
+
   render() {
     const raw = this.getAttribute("content");
     if (!raw) {
-      this.shadowRoot.innerHTML = "";
+      this.renderError();
       return;
     }
 
@@ -27,12 +67,12 @@ class RecipeContent extends HTMLElement {
     try {
       parsed = JSON.parse(raw);
     } catch {
-      this.shadowRoot.innerHTML = `<p>Invalid content</p>`;
+      this.renderError();
       return;
     }
 
     if (!parsed.blocks || !Array.isArray(parsed.blocks)) {
-      this.shadowRoot.innerHTML = `<p>Invalid schema</p>`;
+      this.renderError();
       return;
     }
 
