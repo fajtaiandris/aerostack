@@ -4,6 +4,6 @@ export async function fetchResults(params) {
     tags: params.tags.join(","),
   };
   const query = new URLSearchParams(queryParams).toString();
-  const res = await fetch(`/recipes?${query}`);
+  const res = await fetch(`/api/recipes?${query}`);
   return res.json();
 }

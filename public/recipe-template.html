@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="view-transition" content="same-origin" />
+    <title>{{title}} by {{author}}</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script>
+      const isMenu = () => !!document.querySelector(".menu-overlay");
+      window.addEventListener("pageswap", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "from-menu" : "to-menu");
+      });
+      window.addEventListener("pagereveal", (e) => {
+        if (e.viewTransition)
+          e.viewTransition.types.add(isMenu() ? "to-menu" : "from-menu");
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="/menu.html" class="menu-btn" aria-label="Open menu">☰</a>
+    </header>
+    <main class="recipe-page">
+      <div class="recipe-view-container" id="recipe-view">
+        <article class="recipe-view">
+          <div class="rv-header">
+            <div class="rv-header-body">
+              <h1 class="rv-title">{{title}}</h1>
+              <div class="rv-meta">
+                <span>by <strong>{{author}}</strong></span>
+                <span>{{timeAgo}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="rv-tags">{{tags}}</div>
+          <div class="rv-body">
+            <recipe-content content="{{content}}"></recipe-content>
+          </div>
+        </article>
+      </div>
+    </main>
+    <script src="/js/recipe/recipe-content.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
