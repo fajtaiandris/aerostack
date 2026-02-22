@@ -22,9 +22,57 @@
     <header>
       <a href="/menu" class="menu-btn" aria-label="Open menu">☰</a>
     </header>
-    <main>
-      <h1>Contact</h1>
+
+    <main class="editor-page">
+      <div class="editor-container" id="container">
+        <h1>You can tell me</h1>
+
+        <form class="editor-card contact-form" method="POST" id="form">
+          <input
+            type="hidden"
+            name="access_key"
+            value="b636b305-07e1-4e10-9173-9903948ca54b"
+          />
+
+          <div class="contact-field">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+          </div>
+
+          <div class="contact-field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div class="contact-field">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Whatever it is, let me know"
+              rows="6"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="editor-submit">Send</button>
+        </form>
+      </div>
     </main>
+
+    <script src="/contact/sendEmail.js"></script>
     <script src="/menu.js"></script>
   </body>
 </html>
