@@ -33,7 +33,23 @@ body {
 header {
   padding: 2rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.logo {
+  height: 60px;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.logo:hover {
+  transform: rotate(12deg);
+}
+
+@media (max-width: 600px) {
+  .header-spacer {
+    display: none;
+  }
 }
 
 header:has(.back-btn) {
