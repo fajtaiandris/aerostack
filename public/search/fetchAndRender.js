@@ -6,6 +6,10 @@ export const fetchAndRender = async (params) => {
   let data;
   try {
     data = await fetchResults(params);
+    if (!data || !data.data || !Array.isArray(data.data)) {
+      renderError();
+      return;
+    }
   } catch (error) {
     console.error("Error fetching results:", error);
     renderError();

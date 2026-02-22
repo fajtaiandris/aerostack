@@ -1,20 +1,24 @@
 import { Context } from "hono";
+import { Recipe } from "./types";
 
-  const timeAgo = (dateStr: string) => {
-    const now = new Date();
-    const then = new Date(dateStr);
-    const days = Math.floor((now.getTime() - then.getTime()) / 86400000);
-    if (days === 0) return "today";
-    if (days === 1) return "1 day ago";
-    if (days < 30) return `${days} days ago`;
-    const months = Math.floor(days / 30);
-    return months === 1 ? "1 month ago" : `${months} months ago`;
-  }
+const timeAgo = (dateStr: string) => {
+  const now = new Date();
+  const then = new Date(dateStr);
+  const days = Math.floor((now.getTime() - then.getTime()) / 86400000);
+  if (days === 0) return "today";
+  if (days === 1) return "1 day ago";
+  if (days < 30) return `${days} days ago`;
+  const months = Math.floor(days / 30);
+  return months === 1 ? "1 month ago" : `${months} months ago`;
+};
 
-  export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
-  const slug = c.req.param('slug');
+export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
+  try {
+    const slug = c.req.param("slug");
 
-    const recipeRow = await c.env.aerostack_db.prepare(`
+    const recipeRow = await c.env.aerostack_db
+      .prepare(
+        `
     SELECT
       r.id,
       r.slug,
@@ -28,32 +32,43 @@ import { Context } from "hono";
     LEFT JOIN tags t ON rt.tag_id = t.id
     WHERE r.slug = ?
     GROUP BY r.id
-  `)
-    .bind(slug)
-    .first();
+  `,
+      )
+      .bind(slug)
+      .first();
 
-  if (!recipeRow) {
-    const query = slug.replace(/[-_]/g, " ");
+    if (!recipeRow) {
+      const query = slug.replace(/[-_]/g, " ");
+      const url = new URL("/search", c.req.url);
+      url.searchParams.set("q", query);
+
+      return c.redirect(url.toString(), 302);
+    }
+
+    const asset = await c.env.ASSETS.fetch(
+      new Request(new URL("/recipe/_recipe.template.html", c.req.url)),
+    );
+
+    const recipe: Recipe = recipeRow as unknown as Recipe;
+
+    let html = await asset.text();
+
+    html = html.replaceAll("{{title}}", recipe.title);
+    html = html.replaceAll("{{author}}", recipe.author);
+    html = html.replaceAll("{{timeAgo}}", timeAgo(recipe.created_at));
+    html = html.replaceAll("{{content}}", escapeAttribute(recipe.markdown));
+    html = html.replaceAll(
+      "{{tags}}",
+      (JSON.parse(recipeRow.tags as string) as { id: number; name: string }[])
+        .map((t) => `<span class="rv-tag">${t.name}</span>`)
+        .join(""),
+    );
+    return c.html(html);
+  } catch (err) {
     const url = new URL("/search", c.req.url);
-    url.searchParams.set("q", query);
-
     return c.redirect(url.toString(), 302);
   }
-
-  const asset = await c.env.ASSETS.fetch(
-    new Request(new URL("/recipe/_recipe.template.html", c.req.url))
-  )
-
-  let html = await asset.text()
-
-  html = html.replaceAll("{{title}}", recipeRow.title as string);
-  html = html.replaceAll("{{author}}", recipeRow.author as string);
-  html = html.replaceAll("{{timeAgo}}", timeAgo(recipeRow.created_at as string));
-  html = html.replaceAll("{{content}}", escapeAttribute(recipeRow.markdown as string));
-  html = html.replaceAll("{{tags}}", (JSON.parse(recipeRow.tags as string) as { id: number, name: string }[]).map(t => `<span class="rv-tag">${t.name}</span>`).join(""));
-
-  return c.html(html)
-}
+};
 
 function escapeAttribute(value: string) {
   return value

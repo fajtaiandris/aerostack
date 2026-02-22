@@ -1,20 +1,15 @@
 import { Context } from "hono";
+import { Recipe } from "./types";
 
 export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   try {
-    const body = await c.req.json<{
-      title: string;
-      author: string;
-      markdown: string;
-      tags?: string[];
-      slug?: string;
-    }>();
+    const body = await c.req.json<Pick<Recipe, "title" | "author" | "markdown"> & { tags?: string[] }>();
 
     if (!body.title || !body.author || !body.markdown) {
       return c.json({ error: "Missing required fields" }, 400);
     }
 
-    const slug = body.slug ?? generateSlug(body.title, body.author);
+    const slug = generateSlug(body.title, body.author);
     const tags = (body.tags ?? []).map(t => t.trim()).filter(Boolean);
 
     const now = new Date().toISOString();
@@ -81,7 +76,7 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
       201
     );
   } catch (err) {
-    return c.json({ error: "Invalid JSON body" }, 400);
+    return c.json({ error: "Something went wrong" }, 400);
   }
 };
 
