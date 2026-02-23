@@ -23,6 +23,12 @@
 			"database_name": "aerostack-db",
 			"database_id": "a919456a-1916-4f3f-939e-4c2bf06166e5"
 		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "SITEMAP_KV",
+			"id": "06b1e0acc6764b278b39d022d6630ff0"
+		}
 	]
 	/**
 	 * Smart Placement

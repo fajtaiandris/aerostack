@@ -3,14 +3,16 @@ import { Recipe } from "./types";
 
 export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   try {
-    const body = await c.req.json<Pick<Recipe, "title" | "author" | "markdown"> & { tags?: string[] }>();
+    const body = await c.req.json<
+      Pick<Recipe, "title" | "author" | "markdown"> & { tags?: string[] }
+    >();
 
     if (!body.title || !body.author || !body.markdown) {
       return c.json({ error: "Missing required fields" }, 400);
     }
 
     const slug = generateSlug(body.title, body.author);
-    const tags = (body.tags ?? []).map(t => t.trim()).filter(Boolean);
+    const tags = (body.tags ?? []).map((t) => t.trim()).filter(Boolean);
 
     const now = new Date().toISOString();
 
@@ -24,12 +26,17 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
       return c.json({ error: "This recipe title is already taken" }, 409);
     }
 
+    // ---- Invalidate sitemap cache ----
+    await c.env.SITEMAP_KV.delete("sitemap.xml");
+
     // ---- Insert recipe ----
     const insertRecipe = await c.env.aerostack_db
-      .prepare(`
+      .prepare(
+        `
         INSERT INTO recipes (slug, title, markdown, author, created_at)
         VALUES (?, ?, ?, ?, ?)
-      `)
+      `,
+      )
       .bind(slug, body.title, body.markdown, body.author, now)
       .run();
 
@@ -39,11 +46,13 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
     for (const tagName of tags) {
       // Insert tag if not exists
       await c.env.aerostack_db
-        .prepare(`
+        .prepare(
+          `
           INSERT INTO tags (name)
           VALUES (?)
           ON CONFLICT(name) DO NOTHING
-        `)
+        `,
+        )
         .bind(tagName)
         .run();
 
@@ -54,11 +63,13 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
 
       if (tagRow) {
         await c.env.aerostack_db
-          .prepare(`
+          .prepare(
+            `
             INSERT INTO recipe_tags (recipe_id, tag_id)
             VALUES (?, ?)
             ON CONFLICT(recipe_id, tag_id) DO NOTHING
-          `)
+          `,
+          )
           .bind(recipeId, tagRow.id)
           .run();
       }
@@ -73,7 +84,7 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
         created_at: now,
         tags,
       },
-      201
+      201,
     );
   } catch (err) {
     return c.json({ error: "Something went wrong" }, 400);
