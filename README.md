@@ -34,6 +34,6 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [ ] Comments
 [ ] Meta updates
 [ ] Consistent site titles
-[ ] Robots.txt
+[x] Robots.txt
 [ ] Edit links
-[ ] AI curation
+[x] AI curation

@@ -8,7 +8,6 @@ import {
 } from "./types";
 
 type CurationRuntimeEnv = Pick<Env, "aerostack_db" | "AI">;
-type CurationProducerEnv = Pick<Env, "CURATION_QUEUE">;
 type PendingCurationEnv = Pick<Env, "aerostack_db" | "CURATION_QUEUE">;
 
 export type CurationQueueMessage = {
@@ -60,13 +59,6 @@ const getRecipeForCurationById = async (
     status: normalizeStatus(row.status),
     tags: parseTags(row.tags),
   };
-};
-
-export const enqueueRecipeForCuration = async (
-  env: CurationProducerEnv,
-  recipeId: number,
-) => {
-  await env.CURATION_QUEUE.send({ recipeId } satisfies CurationQueueMessage);
 };
 
 export const enqueuePendingRecipesForCuration = async (

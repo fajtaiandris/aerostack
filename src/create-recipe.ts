@@ -1,6 +1,5 @@
 import { Context } from "hono";
 import { Recipe, RecipeStatus } from "./types";
-import { enqueueRecipeForCuration } from "./curatorAI";
 
 export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   try {
@@ -75,15 +74,6 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
           .bind(recipeId, tagRow.id)
           .run();
       }
-    }
-
-    try {
-      await enqueueRecipeForCuration(c.env, Number(recipeId));
-    } catch (error) {
-      console.error(
-        `[curatorAI] Failed to enqueue recipe ${recipeId} for curation`,
-        error,
-      );
     }
 
     return c.json(

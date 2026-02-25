@@ -5,6 +5,7 @@ import { createRecipe } from "./create-recipe";
 import { sitemap } from "./sitemap";
 import { enqueuePendingRecipesForCuration } from "./curatorAI";
 import { handleCurationQueue } from "./queue";
+import { handleScheduled } from "./scheduled";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -21,4 +22,5 @@ app.get("/__dev/enqueue-pending-recipes", async (c) => {
 export default {
   fetch: app.fetch,
   queue: handleCurationQueue,
+  scheduled: handleScheduled,
 };
