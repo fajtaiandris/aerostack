@@ -3,6 +3,8 @@ import { search } from "./search";
 import { ssrRecipe } from "./recipe";
 import { createRecipe } from "./create-recipe";
 import { sitemap } from "./sitemap";
+import { enqueuePendingRecipesForCuration } from "./curatorAI";
+import { handleCurationQueue } from "./queue";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -11,12 +13,12 @@ app.get("/recipe/:slug", ssrRecipe);
 app.post("/recipes", createRecipe);
 app.get("/sitemap.xml", sitemap);
 
-app.get("/api/tags", async (c) => {
-  const { results } = await c.env.aerostack_db
-    .prepare("SELECT id, name FROM tags ORDER BY name")
-    .all();
-
-  return c.json(results);
+app.get("/__dev/enqueue-pending-recipes", async (c) => {
+  const result = await enqueuePendingRecipesForCuration(c.env);
+  return c.json(result);
 });
 
-export default app;
+export default {
+  fetch: app.fetch,
+  queue: handleCurationQueue,
+};

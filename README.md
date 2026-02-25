@@ -10,7 +10,7 @@ npm run deploy
 [For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
 
 ```txt
-npm run cf-typegen
+pnpm wrangler types
 ```
 
 Pass the `CloudflareBindings` as generics when instantiation `Hono`:
@@ -36,3 +36,4 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [ ] Consistent site titles
 [ ] Robots.txt
 [ ] Edit links
+[ ] AI curation

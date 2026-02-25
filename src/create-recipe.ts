@@ -1,5 +1,6 @@
 import { Context } from "hono";
-import { Recipe } from "./types";
+import { Recipe, RecipeStatus } from "./types";
+import { enqueueRecipeForCuration } from "./curatorAI";
 
 export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   try {
@@ -13,6 +14,7 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
 
     const slug = generateSlug(body.title, body.author);
     const tags = (body.tags ?? []).map((t) => t.trim()).filter(Boolean);
+    const initialStatus: RecipeStatus = "pending_curation";
 
     const now = new Date().toISOString();
 
@@ -33,11 +35,11 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
     const insertRecipe = await c.env.aerostack_db
       .prepare(
         `
-        INSERT INTO recipes (slug, title, markdown, author, created_at)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO recipes (slug, title, markdown, author, status, created_at)
+        VALUES (?, ?, ?, ?, ?, ?)
       `,
       )
-      .bind(slug, body.title, body.markdown, body.author, now)
+      .bind(slug, body.title, body.markdown, body.author, initialStatus, now)
       .run();
 
     const recipeId = insertRecipe.meta.last_row_id;
@@ -75,6 +77,15 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
       }
     }
 
+    try {
+      await enqueueRecipeForCuration(c.env, Number(recipeId));
+    } catch (error) {
+      console.error(
+        `[curatorAI] Failed to enqueue recipe ${recipeId} for curation`,
+        error,
+      );
+    }
+
     return c.json(
       {
         id: recipeId,
@@ -82,6 +93,7 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
         title: body.title,
         author: body.author,
         created_at: now,
+        status: initialStatus,
         tags,
       },
       201,

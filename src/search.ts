@@ -23,8 +23,11 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
   const offset = (page - 1) * perPage;
 
   // ---- Build dynamic WHERE + params (search only title + author) ----
-  const where = [];
+  const where: string[] = [];
   const params = [];
+
+  // Hidden recipes should not appear in search.
+  where.push("(r.status IS NULL OR r.status IN ('pending_curation', 'live'))");
 
   if (q) {
     where.push("(LOWER(r.title) LIKE ? OR LOWER(r.author) LIKE ?)");
