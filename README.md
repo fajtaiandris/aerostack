@@ -31,7 +31,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [ ] Proper tags
 [ ] Featured banner redo
 [ ] Upvoting
-[ ] Comments
+[x] Comments
 [ ] Meta updates
 [ ] Consistent site titles
 [x] Robots.txt
