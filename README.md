@@ -27,18 +27,24 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [x] Robots.txt
 [x] Edit links
 [x] AI curation
-[ ] OG images
-[ ] Caching and rate limits
+
+feature
 [ ] View count
 [ ] Terms page
-[ ] Injection safeguards
-[ ] favicon
 [ ] Proper tags
-[ ] Featured banner redo
 [ ] Upvoting
-[ ] Meta updates
+[ ] sorting
+
+code
 [ ] restyling the notification banner
 [ ] restyling the empty state
 [ ] restyling the layout on the recipe page
 [ ] slug length validation
-[ ] sorting
+[ ] Featured banner redo
+
+chore
+[ ] Caching and rate limits
+[ ] OG images
+[ ] Injection safeguards
+[ ] favicon
+[ ] Meta updates
