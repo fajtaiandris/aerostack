@@ -24,7 +24,6 @@ document.getElementById("submit-recipe").addEventListener("click", async () => {
   const authorInput = document.getElementById("recipe-author");
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
-
   const data = await editor.save();
 
   const tags = Array.from(
@@ -51,9 +50,13 @@ document.getElementById("submit-recipe").addEventListener("click", async () => {
     }
 
     const created = await res.json();
+    const nextUrl = new URL(`/recipe/${created.slug}`, window.location.origin);
 
-    // Redirect to new recipe page
-    window.location.href = `/recipe/${created.slug}`;
+    if (created.edit_hash) {
+      nextUrl.searchParams.set("edit", String(created.edit_hash));
+    }
+
+    window.location.href = `${nextUrl.pathname}${nextUrl.search}`;
   } catch (err) {
     console.error(err);
     alert(err.message || "Something went wrong");

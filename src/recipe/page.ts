@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { Recipe } from "./types";
+import { Recipe } from "../types";
 
 const timeAgo = (dateStr: string) => {
   const now = new Date();

@@ -22,6 +22,11 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 
 ## Project
 
+[x] Comments
+[x] Consistent site titles
+[x] Robots.txt
+[x] Edit links
+[x] AI curation
 [ ] OG images
 [ ] Caching and rate limits
 [ ] View count
@@ -31,9 +36,9 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [ ] Proper tags
 [ ] Featured banner redo
 [ ] Upvoting
-[x] Comments
 [ ] Meta updates
-[x] Consistent site titles
-[x] Robots.txt
-[ ] Edit links
-[x] AI curation
+[ ] restyling the notification banner
+[ ] restyling the empty state
+[ ] restyling the layout on the recipe page
+[ ] slug length validation
+[ ] sorting

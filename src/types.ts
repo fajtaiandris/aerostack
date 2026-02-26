@@ -6,6 +6,7 @@ export type Recipe = {
   author: string;
   created_at: string;
   status: RecipeStatus;
+  edit_hash?: string;
   tags: Tag[];
 };
 

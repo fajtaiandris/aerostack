@@ -1,23 +1,21 @@
 import { Hono } from "hono";
 import { search } from "./search";
-import { ssrRecipe } from "./recipe";
+import { ssrRecipe } from "./recipe/page";
 import { createRecipe } from "./create-recipe";
 import { sitemap } from "./sitemap";
-import { enqueuePendingRecipesForCuration } from "./curatorAI";
 import { handleCurationQueue } from "./queue";
 import { handleScheduled } from "./scheduled";
+import { updateRecipeByHash } from "./edit/recipe";
+import { ssrEditRecipePage } from "./edit/page";
 
 const app = new Hono<{ Bindings: Env }>();
 
 app.get("/api/recipes", search);
 app.get("/recipe/:slug", ssrRecipe);
+app.get("/edit-recipe/:hash", ssrEditRecipePage);
 app.post("/recipes", createRecipe);
+app.put("/recipes/edit/:hash", updateRecipeByHash);
 app.get("/sitemap.xml", sitemap);
-
-app.get("/__dev/enqueue-pending-recipes", async (c) => {
-  const result = await enqueuePendingRecipesForCuration(c.env);
-  return c.json(result);
-});
 
 export default {
   fetch: app.fetch,

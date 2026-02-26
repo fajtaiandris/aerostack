@@ -1,18 +1,23 @@
 import { Context } from "hono";
-import { Recipe, RecipeStatus } from "./types";
+import { RecipeStatus } from "./types";
+import { parseRecipePayload } from "./recipe-payload";
+import { generateRecipeSlug, isValidRecipeSlug } from "./recipe-slug";
+import { generateEditHash } from "./edit/hash";
 
 export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   try {
-    const body = await c.req.json<
-      Pick<Recipe, "title" | "author" | "markdown"> & { tags?: string[] }
-    >();
-
-    if (!body.title || !body.author || !body.markdown) {
-      return c.json({ error: "Missing required fields" }, 400);
+    const body = await c.req.json<unknown>();
+    const parsed = parseRecipePayload(body);
+    if ("error" in parsed) {
+      return c.json({ error: parsed.error }, 400);
     }
+    const { title, author, markdown, tags } = parsed.data;
 
-    const slug = generateSlug(body.title, body.author);
-    const tags = (body.tags ?? []).map((t) => t.trim()).filter(Boolean);
+    const slug = generateRecipeSlug(title, author);
+    if (!isValidRecipeSlug(slug)) {
+      return c.json({ error: "Invalid recipe title or author" }, 400);
+    }
+    const editHash = await createUniqueEditHash(c);
     const initialStatus: RecipeStatus = "pending_curation";
 
     const now = new Date().toISOString();
@@ -34,11 +39,11 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
     const insertRecipe = await c.env.aerostack_db
       .prepare(
         `
-        INSERT INTO recipes (slug, title, markdown, author, status, created_at)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO recipes (slug, title, markdown, author, status, edit_hash, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
       `,
       )
-      .bind(slug, body.title, body.markdown, body.author, initialStatus, now)
+      .bind(slug, title, markdown, author, initialStatus, editHash, now)
       .run();
 
     const recipeId = insertRecipe.meta.last_row_id;
@@ -80,10 +85,11 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
       {
         id: recipeId,
         slug,
-        title: body.title,
-        author: body.author,
+        title,
+        author,
         created_at: now,
         status: initialStatus,
+        edit_hash: editHash,
         tags,
       },
       201,
@@ -93,11 +99,16 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
   }
 };
 
-function generateSlug(title: string, author: string) {
-  return `${title}-by-${author}`
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
-}
+const createUniqueEditHash = async (c: Context<{ Bindings: Env }>) => {
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const hash = generateEditHash();
+    const existing = await c.env.aerostack_db
+      .prepare(`SELECT id FROM recipes WHERE edit_hash = ?`)
+      .bind(hash)
+      .first();
+
+    if (!existing) return hash;
+  }
+
+  throw new Error("Failed to generate a unique edit hash");
+};

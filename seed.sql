@@ -1,21 +1,21 @@
 -- Insert 15 new recipes
-INSERT INTO recipes (slug, title, markdown, author)
+INSERT INTO recipes (slug, title, markdown, author, edit_hash)
 VALUES
-  ('v60-bright-bloom', 'V60 Bright Bloom', '# V60 Bright Bloom recipe content', 'Emma Brown'),
-  ('french-press-bold', 'French Press Bold', '# French Press Bold recipe content', 'Liam Carter'),
-  ('cold-brew-smooth', 'Cold Brew Smooth', '# Cold Brew Smooth recipe content', 'Olivia Davis'),
-  ('espresso-intense-shot', 'Espresso Intense Shot', '# Espresso Intense Shot recipe content', 'Noah Wilson'),
-  ('pour-over-balanced', 'Pour Over Balanced', '# Pour Over Balanced recipe content', 'Ava Martinez'),
-  ('iced-latte-refresh', 'Iced Latte Refresh', '# Iced Latte Refresh recipe content', 'Sophia Anderson'),
-  ('weekend-brunch-brew', 'Weekend Brunch Brew', '# Weekend Brunch Brew recipe content', 'Mason Thomas'),
-  ('dark-roast-power', 'Dark Roast Power', '# Dark Roast Power recipe content', 'Isabella Moore'),
-  ('light-roast-floral', 'Light Roast Floral', '# Light Roast Floral recipe content', 'Ethan Taylor'),
-  ('travel-mug-fast', 'Travel Mug Fast Brew', '# Travel Mug Fast Brew recipe content', 'Charlotte Jackson'),
-  ('single-origin-highlight', 'Single Origin Highlight', '# Single Origin Highlight recipe content', 'James White'),
-  ('honey-oat-latte', 'Honey Oat Latte', '# Honey Oat Latte recipe content', 'Amelia Harris'),
-  ('manual-espresso-pro', 'Manual Espresso Pro', '# Manual Espresso Pro recipe content', 'Benjamin Martin'),
-  ('afternoon-pick-me-up', 'Afternoon Pick Me Up', '# Afternoon Pick Me Up recipe content', 'Mia Thompson'),
-  ('decaf-evening-cup', 'Decaf Evening Cup', '# Decaf Evening Cup recipe content', 'Lucas Garcia');
+  ('v60-bright-bloom', 'V60 Bright Bloom', '# V60 Bright Bloom recipe content', 'Emma Brown', lower(hex(randomblob(16)))),
+  ('french-press-bold', 'French Press Bold', '# French Press Bold recipe content', 'Liam Carter', lower(hex(randomblob(16)))),
+  ('cold-brew-smooth', 'Cold Brew Smooth', '# Cold Brew Smooth recipe content', 'Olivia Davis', lower(hex(randomblob(16)))),
+  ('espresso-intense-shot', 'Espresso Intense Shot', '# Espresso Intense Shot recipe content', 'Noah Wilson', lower(hex(randomblob(16)))),
+  ('pour-over-balanced', 'Pour Over Balanced', '# Pour Over Balanced recipe content', 'Ava Martinez', lower(hex(randomblob(16)))),
+  ('iced-latte-refresh', 'Iced Latte Refresh', '# Iced Latte Refresh recipe content', 'Sophia Anderson', lower(hex(randomblob(16)))),
+  ('weekend-brunch-brew', 'Weekend Brunch Brew', '# Weekend Brunch Brew recipe content', 'Mason Thomas', lower(hex(randomblob(16)))),
+  ('dark-roast-power', 'Dark Roast Power', '# Dark Roast Power recipe content', 'Isabella Moore', lower(hex(randomblob(16)))),
+  ('light-roast-floral', 'Light Roast Floral', '# Light Roast Floral recipe content', 'Ethan Taylor', lower(hex(randomblob(16)))),
+  ('travel-mug-fast', 'Travel Mug Fast Brew', '# Travel Mug Fast Brew recipe content', 'Charlotte Jackson', lower(hex(randomblob(16)))),
+  ('single-origin-highlight', 'Single Origin Highlight', '# Single Origin Highlight recipe content', 'James White', lower(hex(randomblob(16)))),
+  ('honey-oat-latte', 'Honey Oat Latte', '# Honey Oat Latte recipe content', 'Amelia Harris', lower(hex(randomblob(16)))),
+  ('manual-espresso-pro', 'Manual Espresso Pro', '# Manual Espresso Pro recipe content', 'Benjamin Martin', lower(hex(randomblob(16)))),
+  ('afternoon-pick-me-up', 'Afternoon Pick Me Up', '# Afternoon Pick Me Up recipe content', 'Mia Thompson', lower(hex(randomblob(16)))),
+  ('decaf-evening-cup', 'Decaf Evening Cup', '# Decaf Evening Cup recipe content', 'Lucas Garcia', lower(hex(randomblob(16))));
 
 -- Insert additional tags (new ones)
 INSERT INTO tags (name)
