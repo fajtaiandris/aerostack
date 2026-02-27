@@ -1,165 +1,6 @@
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --color-bg: #1b1b1d;
-  --color-text: #e6e6e6;
-  --color-menu-bg: #1b1b1d;
-  --color-menu-text: #e6e6e6;
-  --color-card-bg: #3a3d40;
-  --color-border: #505356;
-  --color-muted: #999999;
-  --color-accent: #c62828;
-}
-
-body {
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
-  background: var(--color-bg);
-  color: var(--color-text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header */
-header {
-  padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-}
-
-.logo {
-  height: 60px;
-  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-.logo:hover {
-  transform: rotate(12deg);
-}
-
-@media (max-width: 600px) {
-  .header-spacer {
-    display: none;
-  }
-}
-
-header:has(.back-btn) {
-  justify-content: space-between;
-}
-
-.back-btn {
-  font-size: 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: none;
-  background: none;
-  transition: opacity 0.2s;
-}
-
-.back-btn:hover {
-  opacity: 0.6;
-}
-
-.menu-btn,
-.close-btn {
-  font-size: 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: none;
-  background: none;
-  transition: opacity 0.2s;
-}
-
-.menu-btn:hover,
-.close-btn:hover {
-  opacity: 0.6;
-}
-
-/* Main content pages */
-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-main h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-/* Menu overlay */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0e0e0f;
-  color: #e6e6e6;
-  display: flex;
-  flex-direction: column;
-  view-transition-name: menu-layer;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
-}
-
-.menu-overlay header {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 2rem;
-}
-
-nav {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-nav ul {
-  list-style: none;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-nav ul li a {
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 700;
-  color: #f5f5f0;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-  transition: opacity 0.2s;
-}
-
-nav ul li a:hover {
-  opacity: 0.5;
-  font-style: italic;
-}
+@import url("/css/reset.css");
+@import url("/css/tokens.css");
+@import url("/css/navigation.css");
 
 /* ---- Recipes Page ---- */
 
@@ -208,8 +49,8 @@ nav ul li a:hover {
 }
 
 .editor-card {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
   overflow: visible;
   position: relative;
@@ -221,10 +62,10 @@ nav ul li a:hover {
   width: 100%;
   background: none;
   border: none;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-subtle);
   padding: 1.25rem 1.5rem;
   font-family: inherit;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   outline: none;
   border-radius: 10px 10px 0 0;
 }
@@ -240,12 +81,12 @@ nav ul li a:hover {
 
 .editor-title::placeholder,
 .editor-author::placeholder {
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 .editor-title:focus,
 .editor-author:focus {
-  border-bottom-color: var(--color-accent);
+  border-bottom-color: var(--color-accent-primary);
 }
 
 #editorjs {
@@ -274,7 +115,7 @@ nav ul li a:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   min-width: 3.5rem;
   flex-shrink: 0;
 }
@@ -290,7 +131,7 @@ nav ul li a:hover {
   align-items: center;
   padding: 0.3rem 0.65rem;
   border-radius: 999px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-subtle);
   background: transparent;
   cursor: pointer;
   transition:
@@ -307,21 +148,21 @@ nav ul li a:hover {
 
 .tag-chip span {
   font-size: 0.78rem;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   transition: color 0.15s;
 }
 
 .tag-chip:hover {
-  border-color: var(--color-text);
+  border-color: var(--color-ink-primary);
 }
 
 .tag-chip:hover span {
-  color: var(--color-text);
+  color: var(--color-ink-primary);
 }
 
 .tag-chip:has(input:checked) {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
 }
 
 .tag-chip:has(input:checked) span {
@@ -336,8 +177,8 @@ nav ul li a:hover {
   font-size: 0.9rem;
   font-weight: 600;
   font-family: inherit;
-  color: var(--color-text);
-  background: var(--color-accent);
+  color: var(--color-ink-primary);
+  background: var(--color-accent-primary);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -355,7 +196,7 @@ nav ul li a:hover {
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .filter-group {
@@ -373,7 +214,7 @@ nav ul li a:hover {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 /* Sort dropdown */
@@ -383,13 +224,13 @@ nav ul li a:hover {
 
 .sort-toggle {
   appearance: none;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 6px;
   padding: 0.3rem 2rem 0.3rem 0.75rem;
   font-size: 0.85rem;
   font-family: inherit;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   cursor: pointer;
   text-align: left;
   position: relative;
@@ -402,7 +243,7 @@ nav ul li a:hover {
 }
 
 .sort-toggle:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-primary);
 }
 
 .sort-dropdown {
@@ -411,8 +252,8 @@ nav ul li a:hover {
   top: calc(100% + 0.35rem);
   left: 0;
   min-width: 100%;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
   padding: 0.35rem 0;
   z-index: 100;
@@ -427,7 +268,7 @@ nav ul li a:hover {
   padding: 0.35rem 0.85rem;
   font-size: 0.82rem;
   cursor: pointer;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   transition: background 0.1s;
 }
 
@@ -440,24 +281,24 @@ nav ul li a:hover {
 }
 
 .filter-group input[type="text"] {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 6px;
   padding: 0.3rem 0.75rem;
   font-size: 0.85rem;
   font-family: inherit;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   height: 2rem;
   outline: none;
   min-width: 200px;
 }
 
 .filter-group input[type="text"]::placeholder {
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 .filter-group input[type="text"]:focus {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-primary);
 }
 
 /* Tags dropdown */
@@ -473,13 +314,13 @@ nav ul li a:hover {
 
 .tags-toggle {
   appearance: none;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 6px;
   padding: 0.3rem 2rem 0.3rem 0.55rem;
   font-size: 0.85rem;
   font-family: inherit;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   cursor: pointer;
   text-align: left;
   position: relative;
@@ -494,12 +335,12 @@ nav ul li a:hover {
 }
 
 .tags-toggle:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-primary);
 }
 
 .tags-toggle-label {
   font-size: 0.85rem;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   padding: 0 0.2rem;
 }
 
@@ -508,9 +349,9 @@ nav ul li a:hover {
   font-size: 0.7rem;
   line-height: 1;
   padding: 0.2rem 0.4rem;
-  background: var(--color-border);
+  background: var(--color-border-subtle);
   border-radius: 3px;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -535,8 +376,8 @@ nav ul li a:hover {
   top: calc(100% + 0.35rem);
   left: 0;
   min-width: 200px;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
   padding: 0.5rem 0;
   z-index: 100;
@@ -552,7 +393,7 @@ nav ul li a:hover {
 }
 
 .tags-section + .tags-section {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .tags-section-title {
@@ -560,7 +401,7 @@ nav ul li a:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   padding: 0.3rem 0.85rem 0.25rem;
 }
 
@@ -579,7 +420,7 @@ nav ul li a:hover {
 }
 
 .tag-option input[type="checkbox"] {
-  accent-color: var(--color-accent);
+  accent-color: var(--color-accent-primary);
   width: 14px;
   height: 14px;
   cursor: pointer;
@@ -587,7 +428,7 @@ nav ul li a:hover {
 }
 
 .tag-option span {
-  color: var(--color-text);
+  color: var(--color-ink-primary);
 }
 
 .tags-clear-section {
@@ -598,7 +439,7 @@ nav ul li a:hover {
   appearance: none;
   background: none;
   border: none;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   font-size: 0.75rem;
   font-family: inherit;
   cursor: pointer;
@@ -607,7 +448,7 @@ nav ul li a:hover {
 }
 
 .tags-clear:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-primary);
 }
 
 /* Recipe list */
@@ -615,8 +456,8 @@ nav ul li a:hover {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  background: var(--color-border);
-  border: 1px solid var(--color-border);
+  background: var(--color-border-subtle);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -729,9 +570,9 @@ nav ul li a:hover {
   width: 2rem;
   height: 2rem;
   border-radius: 6px;
-  border: 1px solid var(--color-border);
-  background: var(--color-card-bg);
-  color: var(--color-text);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-card);
+  color: var(--color-ink-primary);
   cursor: pointer;
   transition:
     border-color 0.15s,
@@ -741,7 +582,7 @@ nav ul li a:hover {
 
 .pagination-prev:hover,
 .pagination-next:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-primary);
 }
 
 .pagination-prev.disabled,
@@ -764,7 +605,7 @@ nav ul li a:hover {
   height: 2rem;
   border-radius: 6px;
   border: 1px solid transparent;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   cursor: pointer;
   transition:
     color 0.15s,
@@ -773,14 +614,14 @@ nav ul li a:hover {
 }
 
 .page-num:hover {
-  color: var(--color-text);
-  border-color: var(--color-border);
+  color: var(--color-ink-primary);
+  border-color: var(--color-border-subtle);
 }
 
 .page-num.active {
-  color: var(--color-text);
-  background: var(--color-card-bg);
-  border-color: var(--color-accent);
+  color: var(--color-ink-primary);
+  background: var(--color-surface-card);
+  border-color: var(--color-accent-primary);
 }
 
 /* ---- Recipe View Page ---- */
@@ -798,8 +639,8 @@ nav ul li a:hover {
 }
 
 .recipe-view {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
   padding: 2rem;
 }
@@ -831,11 +672,11 @@ nav ul li a:hover {
   flex-wrap: wrap;
   gap: 0.5rem 1.25rem;
   font-size: 0.82rem;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 .rv-meta strong {
-  color: var(--color-text);
+  color: var(--color-ink-primary);
 }
 
 .rv-tags {
@@ -844,7 +685,7 @@ nav ul li a:hover {
   gap: 0.4rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .rv-tag {
@@ -854,8 +695,8 @@ nav ul li a:hover {
   letter-spacing: 0.04em;
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  background: var(--color-border);
-  color: var(--color-text);
+  background: var(--color-border-subtle);
+  color: var(--color-ink-primary);
 }
 
 .rv-body h2 {
@@ -873,7 +714,7 @@ nav ul li a:hover {
 .rv-body p {
   font-size: 0.92rem;
   line-height: 1.7;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   margin-bottom: 0.75rem;
 }
 
@@ -886,13 +727,13 @@ nav ul li a:hover {
 .rv-body li {
   font-size: 0.92rem;
   line-height: 1.7;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   margin-bottom: 0.25rem;
 }
 
 .rv-body hr {
   border: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-subtle);
   margin: 1.5rem 0;
 }
 
@@ -913,12 +754,12 @@ nav ul li a:hover {
 }
 
 .recipe-not-found p {
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   margin-bottom: 1.5rem;
 }
 
 .recipe-back-link {
-  color: var(--color-accent);
+  color: var(--color-accent-primary);
   text-decoration: none;
   font-weight: 600;
   transition: opacity 0.15s;
@@ -949,7 +790,7 @@ nav ul li a:hover {
   text-align: center;
   padding: 4rem 2rem;
   background: #1b1b1d;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
 }
 
@@ -959,12 +800,12 @@ nav ul li a:hover {
 }
 
 .rv-body .error p {
-  color: var(--color-muted) !important;
+  color: var(--color-ink-muted) !important;
   margin-bottom: 1.5rem;
 }
 
 .rv-body .recipe-back-link {
-  color: var(--color-accent);
+  color: var(--color-accent-primary);
   text-decoration: none;
   font-weight: 600;
   transition: opacity 0.15s;
@@ -994,18 +835,18 @@ nav ul li a:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 .contact-field input,
 .contact-field textarea {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 6px;
   padding: 0.65rem 0.85rem;
   font-size: 0.9rem;
   font-family: inherit;
-  color: var(--color-text);
+  color: var(--color-ink-primary);
   outline: none;
   resize: vertical;
   transition: border-color 0.15s;
@@ -1013,12 +854,12 @@ nav ul li a:hover {
 
 .contact-field input::placeholder,
 .contact-field textarea::placeholder {
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 .contact-field input:focus,
 .contact-field textarea:focus {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-primary);
 }
 
 /* ---- View Transitions ---- */

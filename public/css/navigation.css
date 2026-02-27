@@ -1,0 +1,115 @@
+header {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+header:has(.back-btn) {
+  justify-content: space-between;
+}
+
+.logo {
+  height: 60px;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.logo:hover {
+  transform: rotate(12deg);
+}
+
+@media (max-width: 600px) {
+  .header-spacer {
+    display: none;
+  }
+}
+
+.back-btn {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  transition: opacity 0.2s;
+}
+
+.back-btn:hover {
+  opacity: 0.6;
+}
+
+.menu-btn,
+.close-btn {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  transition: opacity 0.2s;
+}
+
+.menu-btn:hover,
+.close-btn:hover {
+  opacity: 0.6;
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-surface-menu);
+  color: var(--color-ink-menu);
+  display: flex;
+  flex-direction: column;
+  view-transition-name: menu-layer;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.menu-overlay header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2rem;
+}
+
+.menu-overlay nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-overlay nav ul {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.menu-overlay nav ul li a {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--color-ink-menu-link);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: opacity 0.2s;
+}
+
+.menu-overlay nav ul li a:hover {
+  opacity: 0.5;
+  font-style: italic;
+}

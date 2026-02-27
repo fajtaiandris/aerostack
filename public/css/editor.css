@@ -16,36 +16,36 @@
 .cdx-quote__text,
 .cdx-list__item,
 .cdx-block {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .ce-paragraph[data-placeholder-active]::before,
 .codex-editor [data-placeholder]::before {
-  color: var(--color-muted) !important;
+  color: var(--color-ink-muted) !important;
 }
 
 /* Toolbar plus & settings buttons */
 .ce-toolbar__plus,
 .ce-toolbar__settings-btn {
-  color: var(--color-muted) !important;
-  background: var(--color-card-bg) !important;
-  border: 1px solid var(--color-border) !important;
+  color: var(--color-ink-muted) !important;
+  background: var(--color-surface-card) !important;
+  border: 1px solid var(--color-border-subtle) !important;
 }
 
 .ce-toolbar__plus:hover,
 .ce-toolbar__settings-btn:hover {
-  color: var(--color-text) !important;
-  background: var(--color-border) !important;
+  color: var(--color-ink-primary) !important;
+  background: var(--color-border-subtle) !important;
 }
 
 /* ── Popover (toolbox, block-tunes, convert-to) ── */
 .ce-popover {
   --color-background: #2a2c2e !important;
-  --color-text-primary: var(--color-text) !important;
-  --color-text-secondary: var(--color-muted) !important;
-  --color-border: var(--color-border) !important;
-  --color-border-icon: var(--color-border) !important;
-  --color-border-icon-disabled: var(--color-border) !important;
+  --color-text-primary: var(--color-ink-primary) !important;
+  --color-text-secondary: var(--color-ink-muted) !important;
+  --color-border: var(--color-border-subtle) !important;
+  --color-border-icon: var(--color-border-subtle) !important;
+  --color-border-icon-disabled: var(--color-border-subtle) !important;
   --color-background-item-hover: #3a3d40 !important;
   --color-background-item-focus: rgba(255, 255, 255, 0.07) !important;
   --color-shadow-item-focus: rgba(255, 255, 255, 0.04) !important;
@@ -62,11 +62,11 @@
 }
 
 .ce-popover-item__title {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .ce-popover-item__icon {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
   background: #333638 !important;
   border-color: #505356 !important;
   border-radius: 5px;
@@ -88,27 +88,27 @@
 }
 
 .cdx-search-field__input {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .cdx-search-field__input::placeholder {
-  color: var(--color-muted) !important;
+  color: var(--color-ink-muted) !important;
 }
 
 .cdx-search-field__icon svg {
-  color: var(--color-muted) !important;
+  color: var(--color-ink-muted) !important;
 }
 
 /* Nothing-found message */
 .ce-popover__nothing-found-message {
-  color: var(--color-muted) !important;
+  color: var(--color-ink-muted) !important;
 }
 
 /* ── Inline toolbar ── */
 .ce-inline-toolbar {
   --color-background-icon-active: rgba(56, 138, 229, 0.15) !important;
   --color-text-icon-active: #5fa8ed !important;
-  --color-text-primary: var(--color-text) !important;
+  --color-text-primary: var(--color-ink-primary) !important;
 }
 
 .ce-inline-toolbar .ce-popover__container {
@@ -117,7 +117,7 @@
 }
 
 .ce-inline-tool {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .ce-inline-tool:hover {
@@ -131,7 +131,7 @@
 .ce-inline-tool-input {
   background: #333638 !important;
   border-color: #505356 !important;
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .ce-inline-toolbar__dropdown {
@@ -149,7 +149,7 @@
 
 /* ── Settings button (in-block gear items) ── */
 .cdx-settings-button {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .cdx-settings-button:hover {
@@ -164,17 +164,17 @@
 .cdx-input {
   border-color: #505356 !important;
   background: transparent !important;
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
   box-shadow: none !important;
 }
 
 /* ── Popover header (mobile back-button bar) ── */
 .ce-popover-header__text {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 .ce-popover-header__back-button {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 /* ── Tooltip ── */
@@ -191,7 +191,7 @@
 }
 
 .ct__content {
-  color: var(--color-text) !important;
+  color: var(--color-ink-primary) !important;
 }
 
 #editorjs b,
