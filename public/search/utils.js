@@ -3,6 +3,7 @@ export const DEFAULT_SEARCH_PARAMS = {
   per_page: 5,
   q: "",
   tags: [],
+  sort: "new",
 };
 
 export function debounce(fn, delay = 300) {
@@ -16,12 +17,19 @@ export function debounce(fn, delay = 300) {
 export function getSearchParams() {
   const params = new URLSearchParams(window.location.search);
   const tags = params.get("tags");
+  const sortRaw = params.get("sort");
+  const sort =
+    sortRaw === "top" || sortRaw === "new"
+      ? sortRaw
+      : DEFAULT_SEARCH_PARAMS.sort;
+
   return {
     page: parseInt(params.get("page")) || DEFAULT_SEARCH_PARAMS.page,
     per_page:
       parseInt(params.get("per_page")) || DEFAULT_SEARCH_PARAMS.per_page,
     q: params.get("q") || DEFAULT_SEARCH_PARAMS.q,
     tags: tags ? tags.split(",").filter(Boolean) : DEFAULT_SEARCH_PARAMS.tags,
+    sort,
   };
 }
 

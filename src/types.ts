@@ -5,6 +5,7 @@ export type Recipe = {
   markdown: string;
   author: string;
   created_at: string;
+  view_count: number;
   status: RecipeStatus;
   edit_hash?: string;
   tags: Tag[];

@@ -18,6 +18,7 @@ export function renderResults(response, params) {
     card.setAttribute("title", item.title || "");
     card.setAttribute("author", item.author || "");
     card.setAttribute("date", item.created_at || "");
+    card.setAttribute("views", String(item.view_count ?? 0));
     card.setAttribute("slug", item.slug || "");
 
     if (item.tags) {

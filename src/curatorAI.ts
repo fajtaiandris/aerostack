@@ -28,6 +28,7 @@ const getRecipeForCurationById = async (
         r.markdown,
         r.author,
         r.created_at,
+        r.view_count,
         r.status,
         COALESCE(
           json_group_array(
@@ -56,6 +57,7 @@ const getRecipeForCurationById = async (
     markdown: String(row.markdown),
     author: String(row.author),
     created_at: String(row.created_at),
+    view_count: Number(row.view_count ?? 0),
     status: normalizeStatus(row.status),
     tags: parseTags(row.tags),
   };

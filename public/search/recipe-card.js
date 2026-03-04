@@ -5,6 +5,7 @@ class RecipeCard extends HTMLElement {
       "title",
       "author",
       "date",
+      "views",
       "description",
       "tags",
       "slug",
@@ -51,7 +52,7 @@ class RecipeCard extends HTMLElement {
       .title {
         font-size: 1rem;
         font-weight: 600;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.5rem;
         color: #E6E6E6;
       }
 
@@ -71,13 +72,18 @@ class RecipeCard extends HTMLElement {
         gap: 0.5rem 1rem;
         font-size: 0.78rem;
         color: #999999;
-        margin-bottom: 0.5rem;
       }
 
       .tags {
         display: flex;
         flex-wrap: wrap;
         gap: 0.35rem;
+        margin-bottom: 0.5rem;
+        empty: hidden;
+      }
+      
+      .tags:empty {
+        display: none;
       }
 
       .tag {
@@ -105,6 +111,17 @@ class RecipeCard extends HTMLElement {
     return months === 1 ? "1 month ago" : `${months} months ago`;
   }
 
+  _formatViews(viewCount) {
+    return viewCount === 1 ? "1 view" : `${viewCount} views`;
+  }
+
+  _parseViews() {
+    const raw = this.getAttribute("views");
+    const parsed = Number.parseInt(String(raw ?? "0"), 10);
+    if (!Number.isFinite(parsed) || parsed < 0) return 0;
+    return parsed;
+  }
+
   _parseTags() {
     const raw = this.getAttribute("tags");
     if (!raw) return [];
@@ -121,6 +138,7 @@ class RecipeCard extends HTMLElement {
     const title = this.getAttribute("title") || "";
     const author = this.getAttribute("author") || "";
     const date = this.getAttribute("date") || "";
+    const views = this._parseViews();
     // const recipeId = this.getAttribute("recipe-id") || "";
     const slug = this.getAttribute("slug") || "";
     const tags = this._parseTags();
@@ -136,12 +154,11 @@ class RecipeCard extends HTMLElement {
           <div class="title">
             <a href="/recipe/${slug}">${title}</a>
           </div>
+          <div class="tags">${tagsHTML}</div>
           <div class="meta">
             <span>by ${author}</span>
             <span>${this._timeAgo(date)}</span>
-          </div>
-          <div class="tags">
-            ${tagsHTML}
+            <span>${this._formatViews(views)}</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,13 @@
 import { updateURL, getSearchParams } from "./utils.js";
 import { fetchAndRender } from "./fetchAndRender.js";
 
+const SORT_LABELS = {
+  new: "New",
+  top: "Views",
+};
+
+const normalizeSort = (value) => (value === "top" ? "top" : "new");
+
 export function onFilterChange(newParams) {
   const params = { ...getSearchParams(), ...newParams };
   updateURL(params);
@@ -10,6 +17,8 @@ export function onFilterChange(newParams) {
 export const setupFilters = () => {
   const tagsToggle = document.getElementById("tags-toggle");
   const tagsDropdown = document.getElementById("tags-dropdown");
+  const sortToggle = document.getElementById("sort-toggle");
+  const sortDropdown = document.getElementById("sort-dropdown");
 
   tagsDropdown.addEventListener("change", () => {
     const selected = Array.from(
@@ -22,6 +31,7 @@ export const setupFilters = () => {
   if (tagsToggle && tagsDropdown) {
     tagsToggle.addEventListener("click", () => {
       tagsDropdown.classList.toggle("open");
+      sortDropdown?.classList.remove("open");
     });
 
     // Close when clicking outside
@@ -43,6 +53,28 @@ export const setupFilters = () => {
       });
     }
   }
+
+  if (sortToggle && sortDropdown) {
+    sortToggle.addEventListener("click", () => {
+      sortDropdown.classList.toggle("open");
+      tagsDropdown?.classList.remove("open");
+    });
+
+    sortDropdown.querySelectorAll(".sort-option").forEach((option) => {
+      option.addEventListener("click", () => {
+        const nextSort = normalizeSort(option.dataset.value);
+        setSortUI(nextSort);
+        sortDropdown.classList.remove("open");
+        onFilterChange({ sort: nextSort, page: 1 });
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!sortToggle.contains(e.target) && !sortDropdown.contains(e.target)) {
+        sortDropdown.classList.remove("open");
+      }
+    });
+  }
 };
 
 export const syncFiltersFromParams = (params) => {
@@ -55,6 +87,7 @@ export const syncFiltersFromParams = (params) => {
   });
 
   updateTagsLabel();
+  setSortUI(normalizeSort(params.sort));
 };
 
 function updateTagsLabel() {
@@ -109,4 +142,17 @@ function updateTagsLabel() {
       btn.insertBefore(label, arrow);
     }
   }
+}
+
+function setSortUI(sort) {
+  const normalizedSort = normalizeSort(sort);
+  const label = document.querySelector("#sort-toggle .sort-toggle-label");
+  if (label) {
+    label.textContent = SORT_LABELS[normalizedSort];
+  }
+
+  document.querySelectorAll("#sort-dropdown .sort-option").forEach((option) => {
+    const isActive = normalizeSort(option.dataset.value) === normalizedSort;
+    option.classList.toggle("active", isActive);
+  });
 }

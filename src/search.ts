@@ -5,6 +5,11 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
 
   const page = clampInt(url.searchParams.get("page"), 1, 1_000_000, 1);
   const perPage = clampInt(url.searchParams.get("per_page"), 1, 50, 10);
+  const sort = parseSort(url.searchParams.get("sort"));
+  const orderBySql =
+    sort === "top"
+      ? "ORDER BY r.view_count DESC, r.created_at DESC"
+      : "ORDER BY r.created_at DESC";
 
   const qRaw = (url.searchParams.get("q") || "").trim();
   const q = qRaw ? `%${qRaw.toLowerCase()}%` : null;
@@ -109,7 +114,7 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
   const dataStmt = c.env.aerostack_db.prepare(
     `
       SELECT
-        r.id, r.slug, r.title, r.author, r.created_at,
+        r.id, r.slug, r.title, r.author, r.created_at, r.view_count,
         COALESCE(
           json_group_array(
             CASE WHEN t.id IS NULL THEN NULL
@@ -125,7 +130,7 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
       ${whereSql ? "" : "WHERE 1=1"}
       ${tagFilterSql.sql}
       GROUP BY r.id
-      ORDER BY r.created_at DESC
+      ${orderBySql}
       LIMIT ? OFFSET ?
     `.replace(/\n\s+/g, "\n")
   );
@@ -136,6 +141,7 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
 
   const data = (results || []).map((r) => ({
     ...r,
+    view_count: normalizeNonNegativeInt(r.view_count),
     tags: safeJsonParse(r.tags, []),
   }));
 
@@ -162,4 +168,14 @@ function safeJsonParse(str: unknown, fallback: never[]) {
   } catch {
     return fallback;
   }
+}
+
+function normalizeNonNegativeInt(value: unknown): number {
+  const n = Number(value);
+  if (!Number.isFinite(n) || n < 0) return 0;
+  return Math.floor(n);
+}
+
+function parseSort(input: string | null): "new" | "top" {
+  return input === "top" ? "top" : "new";
 }

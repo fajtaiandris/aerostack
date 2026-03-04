@@ -1,5 +1,6 @@
 import { Context } from "hono";
 import { Recipe } from "../types";
+import { formatViews, normalizeNonNegativeInt, trackRecipeView } from "./view-count";
 
 const timeAgo = (dateStr: string) => {
   const now = new Date();
@@ -26,6 +27,7 @@ export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
       r.markdown,
       r.author,
       r.created_at,
+      r.view_count,
       COALESCE(json_group_array(json_object('id', t.id, 'name', t.name)), '[]') AS tags
     FROM recipes r
     LEFT JOIN recipe_tags rt ON r.id = rt.recipe_id
@@ -50,12 +52,23 @@ export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
     );
 
     const recipe: Recipe = recipeRow as unknown as Recipe;
+    let viewCount = normalizeNonNegativeInt(recipeRow.view_count);
+
+    const recipeId = Number(recipeRow.id);
+    if (Number.isInteger(recipeId) && recipeId > 0) {
+      const tracked = await trackRecipeView(c, recipeId, viewCount);
+      viewCount = tracked.viewCount;
+      if (tracked.setCookie) {
+        c.header("Set-Cookie", tracked.setCookie);
+      }
+    }
 
     let html = await asset.text();
 
     html = html.replaceAll("{{title}}", recipe.title);
     html = html.replaceAll("{{author}}", recipe.author);
     html = html.replaceAll("{{timeAgo}}", timeAgo(recipe.created_at));
+    html = html.replaceAll("{{views}}", formatViews(viewCount));
     html = html.replaceAll("{{content}}", escapeAttribute(recipe.markdown));
     html = html.replaceAll(
       "{{tags}}",

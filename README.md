@@ -27,9 +27,9 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [x] Robots.txt
 [x] Edit links
 [x] AI curation
+[x] View count
 
 feature
-[ ] View count
 [ ] Terms page
 [ ] Proper tags
 [ ] Upvoting
@@ -48,3 +48,4 @@ chore
 [ ] Injection safeguards
 [ ] favicon
 [ ] Meta updates
+[ ] Cookie consent
