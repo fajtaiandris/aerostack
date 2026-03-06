@@ -188,7 +188,6 @@ function createPalette() {
     TOKEN_COLOR_VALUES["--color-art-purple-dark"],
     TOKEN_COLOR_VALUES["--color-art-pink"],
     TOKEN_COLOR_VALUES["--color-art-pink-light"],
-    TOKEN_COLOR_VALUES["--color-art-black"],
   ];
 
   return Array.from(new Set(ordered));
@@ -253,13 +252,14 @@ function pointFor(layout, index, count, random) {
 
 function randomScale(random, forceVeryLarge = false) {
   if (forceVeryLarge) {
-    return randomRange(random, 4.6, 7.8);
+    return randomRange(random, 5.1, 8.2);
   }
 
-  if (random() < 0.25) {
-    return randomRange(random, 2.4, 5.8);
+  if (random() < 0.35) {
+    return randomRange(random, 2.8, 6.2);
   }
-  return 1;
+
+  return 1.35;
 }
 
 function drawBackground(svg, backgroundColor) {
@@ -280,7 +280,7 @@ function drawCircle(svg, random, palette, x, y, forceVeryLarge = false) {
     svgElement("circle", {
       cx: x.toFixed(2),
       cy: y.toFixed(2),
-      r: (randomRange(random, 15, 78) * scale).toFixed(2),
+      r: (randomRange(random, 22, 90) * scale).toFixed(2),
       fill: pick(random, palette),
       stroke: SHAPE_BORDER_COLOR,
       "stroke-width": SHAPE_BORDER_WIDTH,
@@ -290,8 +290,8 @@ function drawCircle(svg, random, palette, x, y, forceVeryLarge = false) {
 
 function drawRect(svg, random, palette, x, y, forceVeryLarge = false) {
   const scale = randomScale(random, forceVeryLarge);
-  const width = randomRange(random, 60, 230) * scale;
-  const height = randomRange(random, 34, 180) * scale;
+  const width = randomRange(random, 90, 260) * scale;
+  const height = randomRange(random, 54, 200) * scale;
   const rotation = randomRange(random, 0, 360).toFixed(2);
   svg.appendChild(
     svgElement("rect", {
@@ -309,14 +309,14 @@ function drawRect(svg, random, palette, x, y, forceVeryLarge = false) {
 
 function drawPolygon(svg, random, palette, x, y, forceVeryLarge = false) {
   const scale = randomScale(random, forceVeryLarge);
-  const size = randomRange(random, 28, 96) * scale;
+  const size = randomRange(random, 38, 112) * scale;
   const pointCount = pick(random, [6, 7, 7, 7, 8, 8, 8, 8, 9, 10]);
   const baseAngle = randomRange(random, 0, Math.PI * 2);
   const points = [];
 
   for (let i = 0; i < pointCount; i += 1) {
     const angle = baseAngle + i * ((Math.PI * 2) / pointCount);
-    const radius = size * randomRange(random, 0.45, 1.35);
+    const radius = size * randomRange(random, 0.55, 1.35);
     const px = x + Math.cos(angle) * radius;
     const py = y + Math.sin(angle) * radius;
     points.push(`${px.toFixed(2)},${py.toFixed(2)}`);
@@ -334,7 +334,7 @@ function drawPolygon(svg, random, palette, x, y, forceVeryLarge = false) {
 
 function drawTriangleShard(svg, random, palette, x, y, forceVeryLarge = false) {
   const scale = randomScale(random, forceVeryLarge);
-  const size = randomRange(random, 34, 120) * scale;
+  const size = randomRange(random, 52, 140) * scale;
   const baseAngle = randomRange(random, 0, Math.PI * 2);
   const points = [];
 
@@ -360,8 +360,8 @@ function drawTriangleShard(svg, random, palette, x, y, forceVeryLarge = false) {
 function drawStar(svg, random, palette, x, y, forceVeryLarge = false) {
   const scale = randomScale(random, forceVeryLarge);
   const arms = randomInt(random, 5, 10);
-  const outer = randomRange(random, 30, 92) * scale;
-  const inner = outer * randomRange(random, 0.22, 0.58);
+  const outer = randomRange(random, 44, 112) * scale;
+  const inner = outer * randomRange(random, 0.28, 0.6);
   const rotation = randomRange(random, 0, Math.PI * 2);
   const points = [];
 
@@ -386,8 +386,8 @@ function drawStar(svg, random, palette, x, y, forceVeryLarge = false) {
 function drawLine(svg, random, palette, x, y, forceVeryLarge = false) {
   const scale = randomScale(random, forceVeryLarge);
   const angle = randomRange(random, 0, Math.PI * 2);
-  const length = randomRange(random, 70, 260) * scale;
-  const strokeWidth = randomRange(random, 2, 16) * Math.max(1, scale * 0.75);
+  const length = randomRange(random, 110, 300) * scale;
+  const strokeWidth = randomRange(random, 3.2, 17) * Math.max(1, scale * 0.75);
   const x2 = x + Math.cos(angle) * length;
   const y2 = y + Math.sin(angle) * length;
 
@@ -419,11 +419,11 @@ function drawLine(svg, random, palette, x, y, forceVeryLarge = false) {
 function drawWavyLine(svg, random, palette, x, y, forceVeryLarge = false) {
   const scale = randomScale(random, forceVeryLarge);
   const angle = randomRange(random, 0, Math.PI * 2);
-  const length = randomRange(random, 180, 460) * scale;
-  const amplitude = randomRange(random, 14, 72) * scale;
+  const length = randomRange(random, 220, 520) * scale;
+  const amplitude = randomRange(random, 24, 84) * scale;
   const waveCount = randomRange(random, 1.2, 4.2);
   const phase = randomRange(random, 0, Math.PI * 2);
-  const strokeWidth = randomRange(random, 2, 14) * Math.max(1, scale * 0.75);
+  const strokeWidth = randomRange(random, 3.2, 15) * Math.max(1, scale * 0.75);
   const steps = randomInt(random, 14, 26);
   const cos = Math.cos(angle);
   const sin = Math.sin(angle);
@@ -565,7 +565,7 @@ function render(seedText) {
   const backgroundPalette = BACKGROUND_TOKEN_NAMES.map((name) => TOKEN_COLOR_VALUES[name]);
   const backgroundColor = pick(random, backgroundPalette);
   const shapePalette = palette.filter((color) => color !== backgroundColor);
-  const shapeCount = randomInt(random, 5, 10);
+  const shapeCount = randomInt(random, 4, 8);
   const layout = createLayout(random, shapeCount);
 
   artboard.replaceChildren();

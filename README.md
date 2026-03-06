@@ -28,6 +28,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [x] Edit links
 [x] AI curation
 [x] View count
+[x] OG images
 
 feature
 [ ] Terms page
@@ -44,7 +45,6 @@ code
 
 chore
 [ ] Caching and rate limits
-[ ] OG images
 [ ] Injection safeguards
 [ ] favicon
 [ ] Meta updates

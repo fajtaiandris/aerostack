@@ -64,9 +64,11 @@ export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
     }
 
     let html = await asset.text();
+    const ogImageUrl = `/api/og-image?seed=${encodeURIComponent(recipe.title)}`;
 
     html = html.replaceAll("{{title}}", recipe.title);
     html = html.replaceAll("{{author}}", recipe.author);
+    html = html.replaceAll("{{ogImage}}", ogImageUrl);
     html = html.replaceAll("{{timeAgo}}", timeAgo(recipe.created_at));
     html = html.replaceAll("{{views}}", formatViews(viewCount));
     html = html.replaceAll("{{content}}", escapeAttribute(recipe.markdown));

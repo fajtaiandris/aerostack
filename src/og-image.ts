@@ -47,7 +47,6 @@ function createPalette() {
     TOKEN_COLOR_VALUES["--color-art-purple-dark"],
     TOKEN_COLOR_VALUES["--color-art-pink"],
     TOKEN_COLOR_VALUES["--color-art-pink-light"],
-    TOKEN_COLOR_VALUES["--color-art-black"],
   ];
 
   return Array.from(new Set(ordered));
@@ -170,7 +169,7 @@ function renderSeededSvg(seedText: string): string {
   const backgroundColor = pick(random, backgroundPalette);
   const shapePalette = palette.filter((color) => color !== backgroundColor);
   const safeShapePalette = shapePalette.length > 0 ? shapePalette : DEFAULT_COLOR_FALLBACK;
-  const shapeCount = randomInt(random, 5, 10);
+  const shapeCount = randomInt(random, 4, 8);
   const layout = createLayout(random, shapeCount);
   const shapes = drawShapes(random, safeShapePalette, layout, shapeCount);
   const text = drawSeedLabel(seedText);
@@ -216,7 +215,7 @@ function drawCircle(
   forceVeryLarge: boolean,
 ) {
   const scale = randomScale(random, forceVeryLarge);
-  const r = randomRange(random, 15, 78) * scale;
+  const r = randomRange(random, 22, 90) * scale;
   return `<circle cx="${fixed2(x)}" cy="${fixed2(y)}" r="${fixed2(r)}" fill="${pick(random, palette)}" stroke="${COLOR_BLACK}" stroke-width="${SHAPE_BORDER_WIDTH}" />`;
 }
 
@@ -228,8 +227,8 @@ function drawRect(
   forceVeryLarge: boolean,
 ) {
   const scale = randomScale(random, forceVeryLarge);
-  const width = randomRange(random, 60, 230) * scale;
-  const height = randomRange(random, 34, 180) * scale;
+  const width = randomRange(random, 90, 260) * scale;
+  const height = randomRange(random, 54, 200) * scale;
   const rotation = randomRange(random, 0, 360);
   return `<rect x="${fixed2(x - width * 0.5)}" y="${fixed2(y - height * 0.5)}" width="${fixed2(width)}" height="${fixed2(height)}" fill="${pick(random, palette)}" stroke="${COLOR_BLACK}" stroke-width="${SHAPE_BORDER_WIDTH}" transform="rotate(${fixed2(rotation)} ${fixed2(x)} ${fixed2(y)})" />`;
 }
@@ -242,14 +241,14 @@ function drawPolygon(
   forceVeryLarge: boolean,
 ) {
   const scale = randomScale(random, forceVeryLarge);
-  const size = randomRange(random, 28, 96) * scale;
+  const size = randomRange(random, 38, 112) * scale;
   const pointCount = pick(random, [6, 7, 7, 7, 8, 8, 8, 8, 9, 10]);
   const baseAngle = randomRange(random, 0, Math.PI * 2);
   const points: string[] = [];
 
   for (let i = 0; i < pointCount; i += 1) {
     const angle = baseAngle + i * ((Math.PI * 2) / pointCount);
-    const radius = size * randomRange(random, 0.45, 1.35);
+    const radius = size * randomRange(random, 0.55, 1.35);
     const px = x + Math.cos(angle) * radius;
     const py = y + Math.sin(angle) * radius;
     points.push(`${fixed2(px)},${fixed2(py)}`);
@@ -266,7 +265,7 @@ function drawTriangleShard(
   forceVeryLarge: boolean,
 ) {
   const scale = randomScale(random, forceVeryLarge);
-  const size = randomRange(random, 34, 120) * scale;
+  const size = randomRange(random, 52, 140) * scale;
   const baseAngle = randomRange(random, 0, Math.PI * 2);
   const points: string[] = [];
 
@@ -290,8 +289,8 @@ function drawStar(
 ) {
   const scale = randomScale(random, forceVeryLarge);
   const arms = randomInt(random, 5, 10);
-  const outer = randomRange(random, 30, 92) * scale;
-  const inner = outer * randomRange(random, 0.22, 0.58);
+  const outer = randomRange(random, 44, 112) * scale;
+  const inner = outer * randomRange(random, 0.28, 0.6);
   const rotation = randomRange(random, 0, Math.PI * 2);
   const points: string[] = [];
 
@@ -315,8 +314,8 @@ function drawLine(
 ) {
   const scale = randomScale(random, forceVeryLarge);
   const angle = randomRange(random, 0, Math.PI * 2);
-  const length = randomRange(random, 70, 260) * scale;
-  const strokeWidth = randomRange(random, 2, 16) * Math.max(1, scale * 0.75);
+  const length = randomRange(random, 110, 300) * scale;
+  const strokeWidth = randomRange(random, 3.2, 17) * Math.max(1, scale * 0.75);
   const x2 = x + Math.cos(angle) * length;
   const y2 = y + Math.sin(angle) * length;
   const color = pick(random, palette);
@@ -336,11 +335,11 @@ function drawWavyLine(
 ) {
   const scale = randomScale(random, forceVeryLarge);
   const angle = randomRange(random, 0, Math.PI * 2);
-  const length = randomRange(random, 180, 460) * scale;
-  const amplitude = randomRange(random, 14, 72) * scale;
+  const length = randomRange(random, 220, 520) * scale;
+  const amplitude = randomRange(random, 24, 84) * scale;
   const waveCount = randomRange(random, 1.2, 4.2);
   const phase = randomRange(random, 0, Math.PI * 2);
-  const strokeWidth = randomRange(random, 2, 14) * Math.max(1, scale * 0.75);
+  const strokeWidth = randomRange(random, 3.2, 15) * Math.max(1, scale * 0.75);
   const steps = randomInt(random, 14, 26);
   const cos = Math.cos(angle);
   const sin = Math.sin(angle);
@@ -529,14 +528,14 @@ function pointFor(layout: Layout, index: number, count: number, random: () => nu
 
 function randomScale(random: () => number, forceVeryLarge = false) {
   if (forceVeryLarge) {
-    return randomRange(random, 4.6, 7.8);
+    return randomRange(random, 5.1, 8.2);
   }
 
-  if (random() < 0.25) {
-    return randomRange(random, 2.4, 5.8);
+  if (random() < 0.35) {
+    return randomRange(random, 2.8, 6.2);
   }
 
-  return 1;
+  return 1.35;
 }
 
 function readSeedFromUrl(url: URL) {
