@@ -12,14 +12,14 @@ import { faviconImage } from "./favicon";
 
 const app = new Hono<{ Bindings: Env }>();
 
-// app.get("/api/recipes", search);
+app.get("/api/recipes", search);
 app.get("/api/og-image", ogImage);
 app.get("/api/favicon", faviconImage);
-// app.get("/recipe/:slug", ssrRecipe);
-// app.get("/edit-recipe/:hash", ssrEditRecipePage);
-// app.post("/recipes", createRecipe);
-// app.put("/recipes/edit/:hash", updateRecipeByHash);
-// app.get("/sitemap.xml", sitemap);
+app.get("/recipe/:slug", ssrRecipe);
+app.get("/edit-recipe/:hash", ssrEditRecipePage);
+app.post("/recipes", createRecipe);
+app.put("/recipes/edit/:hash", updateRecipeByHash);
+app.get("/sitemap.xml", sitemap);
 
 export default {
   fetch: app.fetch,
