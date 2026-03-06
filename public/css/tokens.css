@@ -17,4 +17,15 @@
   --color-ink-muted: oklch(68.3% 0 0);
   --color-accent-primary: #c62828;
   --color-accent-primary: oklch(53.86% 0.1937 26.72);
+
+  /* AeroStack canister-inspired palette (sampled from provided reference image) */
+  --color-art-black: #131016;
+  --color-art-purple-dark: #4c2a8a;
+  --color-art-purple: #7142b2;
+  --color-art-pink: #ef86be;
+  --color-art-pink-light: #f5b7d8;
+  --color-art-cyan: #30b7c5;
+  --color-art-yellow: #f2dd28;
+  --color-art-orange: #ff8f32;
+  --color-art-red: #fa4a3a;
 }

@@ -7,10 +7,12 @@ import { handleCurationQueue } from "./queue";
 import { handleScheduled } from "./scheduled";
 import { updateRecipeByHash } from "./edit/recipe";
 import { ssrEditRecipePage } from "./edit/page";
+import { ogImage } from "./og-image";
 
 const app = new Hono<{ Bindings: Env }>();
 
 app.get("/api/recipes", search);
+app.get("/api/og-image", ogImage);
 app.get("/recipe/:slug", ssrRecipe);
 app.get("/edit-recipe/:hash", ssrEditRecipePage);
 app.post("/recipes", createRecipe);
