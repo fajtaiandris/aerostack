@@ -1,0 +1,196 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 22px;
+  color: var(--color-ink-primary);
+  font-family:
+    "Avenir Next",
+    "Gill Sans",
+    "Trebuchet MS",
+    sans-serif;
+  background-color: var(--color-surface-page);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.page {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.card {
+  border: 2px solid #000000;
+  border-radius: 0;
+  background: var(--color-surface-card);
+  padding: 18px;
+}
+
+h1 {
+  margin: 0 0 14px;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.4rem, 1.2vw + 1rem, 2rem);
+}
+
+h2 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.seed-form label {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.left-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-favicon {
+  margin-top: 16px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.seed-row {
+  display: flex;
+}
+
+.seed-row input {
+  min-width: 0;
+  flex: 1;
+  height: 42px;
+  border-radius: 0;
+  border: 1px solid var(--color-border-subtle);
+  padding: 0 12px;
+  font: inherit;
+  color: var(--color-ink-primary);
+  background: var(--color-surface-menu);
+}
+
+.svg-frame {
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-menu);
+  overflow: hidden;
+}
+
+.svg-frame svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0;
+  background: var(--color-surface-menu);
+  color: var(--color-ink-menu-link);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.action-link:hover {
+  border-color: var(--color-ink-muted);
+}
+
+.favicon-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.favicon-size-option {
+  appearance: none;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-menu);
+  color: var(--color-ink-menu-link);
+  border-radius: 0;
+  padding: 6px;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  min-width: 58px;
+}
+
+.favicon-size-option.is-active {
+  border-color: var(--color-ink-menu-link);
+}
+
+.favicon-size-frame {
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-page);
+  overflow: hidden;
+}
+
+.favicon-size-frame svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.favicon-size-label {
+  font-size: 0.68rem;
+  line-height: 1;
+  color: var(--color-ink-muted);
+}
+
+.og-preview {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.og-frame {
+  width: 100%;
+  aspect-ratio: 1200 / 630;
+}
+
+@media (max-width: 940px) {
+  .page {
+    width: min(960px, 100%);
+    grid-template-columns: 1fr;
+  }
+
+  .left-favicon {
+    margin-top: 16px;
+  }
+}

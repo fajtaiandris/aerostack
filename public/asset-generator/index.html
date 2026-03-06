@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asset Generator • AeroStack</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/css/tokens.css" />
+    <link rel="stylesheet" href="/asset-generator/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card left-card">
+        <form id="seed-form" class="seed-form" autocomplete="off">
+          <h1>Asset Generator</h1>
+          <label for="seed-input">Seed</label>
+          <div class="seed-row">
+            <input
+              id="seed-input"
+              name="seed"
+              type="text"
+              placeholder="Try: hello, you"
+            />
+          </div>
+        </form>
+
+        <section class="left-favicon">
+          <div class="section-head">
+            <h2>Favicon SVG Preview</h2>
+            <div class="action-row">
+              <a
+                id="favicon-open"
+                class="action-link"
+                href="/api/favicon?seed=aerostack"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open PNG"
+                aria-label="Open favicon PNG"
+              >
+                ↗
+              </a>
+              <a
+                id="favicon-download"
+                class="action-link"
+                href="/api/favicon?seed=aerostack"
+                download="aerostack-favicon.png"
+                title="Download PNG"
+                aria-label="Download favicon PNG"
+              >
+                ↓
+              </a>
+            </div>
+          </div>
+          <div
+            id="favicon-preview-grid"
+            class="favicon-preview-grid"
+            role="group"
+            aria-label="Deterministic favicon artwork previews in common sizes"
+          ></div>
+        </section>
+      </section>
+
+      <section class="card right-card">
+        <section class="og-preview">
+          <div class="section-head">
+            <h2>OG SVG Preview</h2>
+            <div class="action-row">
+              <a
+                id="og-open"
+                class="action-link"
+                href="/api/og-image?seed=aerostack"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open PNG"
+                aria-label="Open OG PNG"
+              >
+                ↗
+              </a>
+              <a
+                id="og-download"
+                class="action-link"
+                href="/api/og-image?seed=aerostack"
+                download="aerostack-og.png"
+                title="Download PNG"
+                aria-label="Download OG PNG"
+              >
+                ↓
+              </a>
+            </div>
+          </div>
+          <div
+            id="og-artboard"
+            class="svg-frame og-frame"
+            role="img"
+            aria-label="Deterministic OG artwork preview"
+          ></div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="/asset-generator/main.js"></script>
+  </body>
+</html>
