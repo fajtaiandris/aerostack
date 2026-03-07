@@ -77,7 +77,8 @@ export function readSeedFromSearch(searchText) {
     const rawParams = new URLSearchParams(rawQuery);
     const keys = Array.from(rawParams.keys());
     const onlyControlParams =
-      keys.length > 0 && keys.every((key) => key === "faviconSize" || key === "size");
+      keys.length > 0 &&
+      keys.every((key) => key === "faviconSize" || key === "size");
     if (!onlyControlParams) {
       return normalizeSeedValue(rawQuery) || DEFAULT_SEED;
     }
@@ -158,7 +159,9 @@ function createBackgroundPalette() {
 }
 
 function createShapePalette(backgroundColor) {
-  const palette = SHAPE_COLOR_PALETTE.filter((color) => color !== backgroundColor);
+  const palette = SHAPE_COLOR_PALETTE.filter(
+    (color) => color !== backgroundColor,
+  );
   return palette.length > 0 ? palette : SHAPE_COLOR_PALETTE;
 }
 
@@ -180,7 +183,8 @@ function createLayout(random, shapeCount) {
 function pointFor(layout, index, count, random) {
   if (layout.mode === "radial") {
     const angle =
-      (index / Math.max(1, count)) * Math.PI * 2 + randomRange(random, -0.45, 0.45);
+      (index / Math.max(1, count)) * Math.PI * 2 +
+      randomRange(random, -0.45, 0.45);
     const radius = randomRange(random, ART_HEIGHT * 0.14, ART_HEIGHT * 0.5);
     return {
       x: ART_WIDTH * 0.5 + Math.cos(angle) * radius,
@@ -249,7 +253,13 @@ function drawOgShapes(random, palette, layout, shapeCount) {
     const x = clamp(point.x, -420, ART_WIDTH + 420);
     const y = clamp(point.y, -420, ART_HEIGHT + 420);
     const drawShape = pick(random, drawFns);
-    const rendered = drawShape.draw(random, palette, x, y, i === veryLargeShapeIndex);
+    const rendered = drawShape.draw(
+      random,
+      palette,
+      x,
+      y,
+      i === veryLargeShapeIndex,
+    );
     parts.push(rendered.svg);
 
     if (i === veryLargeShapeIndex) {
@@ -262,11 +272,10 @@ function drawOgShapes(random, palette, layout, shapeCount) {
 
   return {
     svg: parts.join(""),
-    mainShape:
-      mainShape || {
-        kind: "polygon",
-        color: palette[0] || SHAPE_COLOR_PALETTE[0],
-      },
+    mainShape: mainShape || {
+      kind: "polygon",
+      color: palette[0] || SHAPE_COLOR_PALETTE[0],
+    },
   };
 }
 
@@ -321,7 +330,8 @@ function drawOgTriangleShard(random, palette, x, y, forceVeryLarge) {
   const points = [];
 
   for (let i = 0; i < 3; i += 1) {
-    const angle = baseAngle + i * ((Math.PI * 2) / 3) + randomRange(random, -0.28, 0.28);
+    const angle =
+      baseAngle + i * ((Math.PI * 2) / 3) + randomRange(random, -0.28, 0.28);
     const radius = size * randomRange(random, 0.62, 1.42);
     const px = x + Math.cos(angle) * radius;
     const py = y + Math.sin(angle) * radius;
@@ -394,7 +404,8 @@ function drawOgWavyLine(random, palette, x, y, forceVeryLarge) {
     const localX = (t - 0.5) * length;
     const localY =
       Math.sin(t * Math.PI * 2 * waveCount + phase) * amplitude +
-      Math.sin(t * Math.PI * 2 * (waveCount * 2.1) + phase * 0.73) * (amplitude * 0.3);
+      Math.sin(t * Math.PI * 2 * (waveCount * 2.1) + phase * 0.73) *
+        (amplitude * 0.3);
     const px = x + localX * cos - localY * sin;
     const py = y + localX * sin + localY * cos;
     points.push({ x: px, y: py });
@@ -429,14 +440,22 @@ function drawSeedLabel(seedText) {
   const maxBannerWidth = ART_WIDTH - margin * 2;
   const maxBannerHeight = ART_HEIGHT * 0.5;
   const longestLineLength = Math.max(...lines.map((line) => line.length), 1);
-  const fontFromWidth = (maxBannerWidth - boxPaddingX * 2) / (longestLineLength * 0.59);
+  const fontFromWidth =
+    (maxBannerWidth - boxPaddingX * 2) / (longestLineLength * 0.59);
   const fontFromHeight =
-    (maxBannerHeight - (lines.length - 1) * lineGap - lines.length * boxPaddingY * 2) /
+    (maxBannerHeight -
+      (lines.length - 1) * lineGap -
+      lines.length * boxPaddingY * 2) /
     Math.max(1, lines.length * 1.05);
-  const fontSize = clamp(Math.floor(Math.min(fontFromWidth, fontFromHeight)), 48, 210);
+  const fontSize = clamp(
+    Math.floor(Math.min(fontFromWidth, fontFromHeight)),
+    48,
+    210,
+  );
   const lineHeight = fontSize * 1.05;
   const lineBoxHeight = lineHeight + boxPaddingY * 2;
-  const totalHeight = lines.length * lineBoxHeight + (lines.length - 1) * lineGap;
+  const totalHeight =
+    lines.length * lineBoxHeight + (lines.length - 1) * lineGap;
   const baseX = margin;
   const baseY = ART_HEIGHT - totalHeight - margin;
   const textParts = [];
@@ -446,7 +465,11 @@ function drawSeedLabel(seedText) {
     const line = lines[i];
     const y = baseY + i * (lineBoxHeight + lineGap);
     const textWidth = estimateTextWidth(line, fontSize);
-    const lineBoxWidth = clamp(textWidth + boxPaddingX * 2, 180, maxBannerWidth);
+    const lineBoxWidth = clamp(
+      textWidth + boxPaddingX * 2,
+      180,
+      maxBannerWidth,
+    );
     const jitterX = randomRange(labelRandom, -6, 6);
     const jitterY = randomRange(labelRandom, -4, 4);
     const rotation = randomRange(labelRandom, -2.2, 2.2);
@@ -541,15 +564,29 @@ function pickFaviconAnchor(random) {
   const spanMax = FAVICON_SIZE - 16;
 
   const anchors = [
-    { x: randomRange(random, edgeNearMin, edgeNearMax), y: randomRange(random, spanMin, spanMax) },
     {
-      x: randomRange(random, FAVICON_SIZE - edgeNearMax, FAVICON_SIZE - edgeNearMin),
+      x: randomRange(random, edgeNearMin, edgeNearMax),
       y: randomRange(random, spanMin, spanMax),
     },
-    { x: randomRange(random, spanMin, spanMax), y: randomRange(random, edgeNearMin, edgeNearMax) },
+    {
+      x: randomRange(
+        random,
+        FAVICON_SIZE - edgeNearMax,
+        FAVICON_SIZE - edgeNearMin,
+      ),
+      y: randomRange(random, spanMin, spanMax),
+    },
     {
       x: randomRange(random, spanMin, spanMax),
-      y: randomRange(random, FAVICON_SIZE - edgeNearMax, FAVICON_SIZE - edgeNearMin),
+      y: randomRange(random, edgeNearMin, edgeNearMax),
+    },
+    {
+      x: randomRange(random, spanMin, spanMax),
+      y: randomRange(
+        random,
+        FAVICON_SIZE - edgeNearMax,
+        FAVICON_SIZE - edgeNearMin,
+      ),
     },
   ];
 
@@ -591,7 +628,8 @@ function drawFaviconTriangleShard(random, color, x, y) {
   const points = [];
 
   for (let i = 0; i < 3; i += 1) {
-    const angle = baseAngle + i * ((Math.PI * 2) / 3) + randomRange(random, -0.26, 0.26);
+    const angle =
+      baseAngle + i * ((Math.PI * 2) / 3) + randomRange(random, -0.26, 0.26);
     const radius = size * randomRange(random, 0.68, 1.34);
     const px = x + Math.cos(angle) * radius;
     const py = y + Math.sin(angle) * radius;
@@ -649,7 +687,8 @@ function drawFaviconWavyLine(random, color, x, y) {
     const localX = (t - 0.5) * length;
     const localY =
       Math.sin(t * Math.PI * 2 * waveCount + phase) * amplitude +
-      Math.sin(t * Math.PI * 2 * (waveCount * 2.1) + phase * 0.7) * (amplitude * 0.25);
+      Math.sin(t * Math.PI * 2 * (waveCount * 2.1) + phase * 0.7) *
+        (amplitude * 0.25);
     const px = x + localX * cos - localY * sin;
     const py = y + localX * sin + localY * cos;
     points.push({ x: px, y: py });
