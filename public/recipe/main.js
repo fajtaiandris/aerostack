@@ -19,6 +19,38 @@ if (EDIT_HASH_PATTERN.test(editHash)) {
   renderEditBanner(editHash);
 }
 
+applyRecipeTitleBackground();
+
+async function applyRecipeTitleBackground() {
+  const titleNode = document.querySelector(".rv-title");
+  const titleSeed = String(titleNode?.textContent || "").trim();
+  if (!titleSeed) {
+    return;
+  }
+
+  try {
+    const { DEFAULT_SEED, generateOgArt, normalizeSeedValue } = await import(
+      "/shared/art-generator.js"
+    );
+
+    const normalizedSeed = normalizeSeedValue(titleSeed) || DEFAULT_SEED;
+    const { backgroundSvg } = generateOgArt(normalizedSeed);
+    const onePixelBorderSvg = backgroundSvg.replace(
+      /stroke-width="2(?:\.0+)?"/g,
+      'stroke-width="1"',
+    );
+    const encoded = encodeURIComponent(onePixelBorderSvg);
+
+    document.body.style.backgroundImage = `url("data:image/svg+xml;charset=UTF-8,${encoded}")`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center top";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
+  } catch {
+    // Keep the default body background if shared art generation fails.
+  }
+}
+
 function renderEditBanner(editHashValue) {
   const editUrl = `${window.location.origin}/edit-recipe/${encodeURIComponent(editHashValue)}`;
 

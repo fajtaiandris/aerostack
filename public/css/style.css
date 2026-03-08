@@ -179,7 +179,7 @@
   font-family: inherit;
   color: var(--color-ink-primary);
   background: var(--color-accent-primary);
-  border: none;
+  border: 1px solid var(--color-art-black);
   border-radius: 8px;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -195,8 +195,6 @@
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .filter-group {
@@ -214,7 +212,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-ink-muted);
+  color: var(--color-art-white);
 }
 
 /* Sort dropdown */
@@ -348,8 +346,10 @@
   display: inline-block;
   font-size: 0.7rem;
   line-height: 1;
+  text-transform: uppercase;
+  font-weight: 600;
   padding: 0.2rem 0.4rem;
-  background: var(--color-border-subtle);
+  background: var(--color-art-yellow);
   border-radius: 3px;
   color: var(--color-ink-primary);
   white-space: nowrap;
@@ -432,14 +432,15 @@
 }
 
 .tags-clear-section {
-  padding: 0.4rem 0.85rem !important;
+  padding: 0.2rem 0.85rem 0 0.85rem !important;
 }
 
 .tags-clear {
   appearance: none;
   background: none;
   border: none;
-  color: var(--color-ink-muted);
+  color: var(--color-ink-primary);
+  text-transform: uppercase;
   font-size: 0.75rem;
   font-family: inherit;
   cursor: pointer;
@@ -473,35 +474,13 @@
 /* Featured Banner */
 .featured-banner {
   position: relative;
-  background: linear-gradient(135deg, #f5c842, #e6a817);
-  border: none;
+  background: var(--color-art-pink);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
   padding: 1.75rem;
   margin-bottom: 1.5rem;
   overflow: hidden;
   color: #1a1a1a;
-}
-
-.featured-banner::before {
-  content: "";
-  position: absolute;
-  right: -2rem;
-  top: -2rem;
-  width: 8rem;
-  height: 8rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 50%;
-}
-
-.featured-banner::after {
-  content: "";
-  position: absolute;
-  right: 1rem;
-  bottom: -1.5rem;
-  width: 5rem;
-  height: 5rem;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 50%;
 }
 
 .featured-badge {
@@ -536,7 +515,7 @@
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #f5c842;
+  color: var(--color-art-white);
   background: #1a1a1a;
   padding: 0.5rem 1.25rem;
   border-radius: 5px;
@@ -587,7 +566,6 @@
 
 .pagination-prev.disabled,
 .pagination-next.disabled {
-  opacity: 0.2;
   pointer-events: none;
 }
 
@@ -611,17 +589,19 @@
     color 0.15s,
     border-color 0.15s,
     background 0.15s;
+  background: var(--color-art-white);
+  border-color: var(--color-border-subtle);
 }
 
 .page-num:hover {
   color: var(--color-ink-primary);
-  border-color: var(--color-border-subtle);
+  border-color: var(--color-art-red);
 }
 
 .page-num.active {
-  color: var(--color-ink-primary);
-  background: var(--color-surface-card);
-  border-color: var(--color-accent-primary);
+  color: var(--color-art-white);
+  background: var(--color-art-purple);
+  border-color: var(--color-art-black);
 }
 
 /* ---- Recipe View Page ---- */
@@ -695,7 +675,7 @@
   letter-spacing: 0.04em;
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  background: var(--color-border-subtle);
+  background: var(--color-art-yellow);
   color: var(--color-ink-primary);
 }
 
@@ -746,6 +726,7 @@
 .recipe-not-found {
   text-align: center;
   padding: 4rem 2rem;
+  background-color: var(--color-art-white);
 }
 
 .recipe-not-found h1 {

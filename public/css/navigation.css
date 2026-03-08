@@ -57,6 +57,7 @@ header:has(.back-btn) {
   border: none;
   background: none;
   transition: opacity 0.2s;
+  color: var(--color-art-white);
 }
 
 .menu-btn:hover,

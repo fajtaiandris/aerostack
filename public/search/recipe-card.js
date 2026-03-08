@@ -29,13 +29,18 @@ class RecipeCard extends HTMLElement {
     return `
       :host {
         display: block;
-        background: #3A3D40;
+        background: white;
         transition: background 0.15s;
         font-family: system-ui, -apple-system, sans-serif;
       }
 
       :host(:hover) {
-        background: #444749;
+        background: #ef5350;
+      }
+
+      a, a:hover {
+        color: inherit;
+        text-decoration: none
       }
 
       .card {
@@ -53,17 +58,7 @@ class RecipeCard extends HTMLElement {
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
-        color: #E6E6E6;
-      }
-
-      .title a {
-        color: inherit;
-        text-decoration: none;
-        transition: color 0.15s;
-      }
-
-      .title a:hover {
-        color: #ef5350;
+        color: #131016;
       }
 
       .meta {
@@ -71,7 +66,7 @@ class RecipeCard extends HTMLElement {
         flex-wrap: wrap;
         gap: 0.5rem 1rem;
         font-size: 0.78rem;
-        color: #999999;
+        color: #131016;
       }
 
       .tags {
@@ -92,10 +87,11 @@ class RecipeCard extends HTMLElement {
         text-transform: uppercase;
         letter-spacing: 0.03em;
         padding: 0.2rem 0.5rem;
-        border-radius: 4px;
-        background: #505356;
+        border-radius: 0;
+        background: #f2dd28;
         border: none;
-        color: #E6E6E6;
+        color: #131016;
+        transition: background 0.15s;
       }
     `;
   }
@@ -149,19 +145,19 @@ class RecipeCard extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>${this._styles}</style>
-      <div class="card">
-        <div class="body">
-          <div class="title">
-            <a href="/recipe/${slug}">${title}</a>
-          </div>
-          <div class="tags">${tagsHTML}</div>
-          <div class="meta">
-            <span>by ${author}</span>
-            <span>${this._timeAgo(date)}</span>
-            <span>${this._formatViews(views)}</span>
+      <a href="/recipe/${slug}">
+        <div class="card">
+          <div class="body">
+            <div class="title">${title}</div>
+            <div class="tags">${tagsHTML}</div>
+            <div class="meta">
+              <span>by ${author}</span>
+              <span>${this._timeAgo(date)}</span>
+              <span>${this._formatViews(views)}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     `;
   }
 }
