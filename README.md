@@ -30,19 +30,17 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 [x] View count
 [x] OG images
 [x] favicon
+[x] Proper tags
+[x] sorting
 
 feature
 [ ] Terms page
-[ ] Proper tags
+[ ] Featured banner copies
 [ ] Upvoting
-[ ] sorting
 
 code
-[ ] restyling the notification banner
-[ ] restyling the empty state
-[ ] restyling the layout on the recipe page
+[ ] refactoring the css
 [ ] slug length validation
-[ ] Featured banner redo
 
 chore
 [ ] Caching and rate limits
