@@ -132,7 +132,7 @@
   padding: 0.3rem 0.65rem;
   border-radius: 999px;
   border: 1px solid var(--color-border-subtle);
-  background: transparent;
+  background: var(--color-art-yellow);
   cursor: pointer;
   transition:
     background 0.15s,
@@ -162,7 +162,6 @@
 
 .tag-chip:has(input:checked) {
   background: var(--color-accent-primary);
-  border-color: var(--color-accent-primary);
 }
 
 .tag-chip:has(input:checked) span {
@@ -178,7 +177,7 @@
   font-weight: 600;
   font-family: inherit;
   color: var(--color-ink-primary);
-  background: var(--color-accent-primary);
+  background: var(--color-art-pink);
   border: 1px solid var(--color-art-black);
   border-radius: 8px;
   cursor: pointer;
@@ -186,7 +185,7 @@
 }
 
 .editor-submit:hover {
-  opacity: 0.85;
+  text-decoration: underline;
 }
 
 /* Filters */
@@ -754,6 +753,9 @@
 
 .rv-comments {
   margin-top: 4rem;
+  border: 1px solid var(--color-art-black);
+  background-color: var(--color-art-white);
+  padding: 2rem;
 }
 
 .rv-comments h2 {

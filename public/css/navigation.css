@@ -18,6 +18,47 @@ header:has(.back-btn) {
   transform: rotate(12deg);
 }
 
+.logo-wordmark-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-wordmark {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0.35rem 0.9rem 0.26rem;
+  color: var(--color-art-white);
+  font-family:
+    "Avenir Next",
+    "Trebuchet MS",
+    sans-serif;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  transform: translate(-3px, 2px);
+  transition: transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.logo-wordmark::before {
+  content: "";
+  position: absolute;
+  inset: -0.15em -0.45em;
+  background: var(--color-art-black);
+  transform: rotate(-1.8deg) translate(2px, -1px);
+  z-index: -1;
+  transition: transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.logo-wordmark-link:hover .logo-wordmark {
+  transform: translate(-5px, 0) rotate(-1.2deg);
+}
+
+.logo-wordmark-link:hover .logo-wordmark::before {
+  transform: rotate(-4deg) translate(4px, -2px);
+}
+
 @media (max-width: 600px) {
   .header-spacer {
     display: none;

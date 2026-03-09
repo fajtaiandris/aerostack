@@ -1,4 +1,4 @@
-/* ── Editor.js dark-theme overrides ── */
+/* ── Editor.js overrides ── */
 
 /* Layout: let blocks span the full card width */
 .ce-block__content,
@@ -10,7 +10,7 @@
   padding-bottom: 120px !important;
 }
 
-/* Text colours */
+/* Text colors */
 .ce-paragraph,
 .ce-header,
 .cdx-quote__text,
@@ -24,170 +24,162 @@
   color: var(--color-ink-muted) !important;
 }
 
-/* Toolbar plus & settings buttons */
+/* Toolbar plus and settings buttons */
 .ce-toolbar__plus,
 .ce-toolbar__settings-btn {
   color: var(--color-ink-muted) !important;
-  background: var(--color-surface-card) !important;
+  background: var(--color-art-white) !important;
   border: 1px solid var(--color-border-subtle) !important;
 }
 
 .ce-toolbar__plus:hover,
 .ce-toolbar__settings-btn:hover {
-  color: var(--color-ink-primary) !important;
-  background: var(--color-border-subtle) !important;
+  color: var(--color-art-white) !important;
+  background: var(--color-art-black) !important;
 }
 
-/* ── Popover (toolbox, block-tunes, convert-to) ── */
+/* Popover (toolbox, block-tunes, convert-to) */
 .ce-popover {
-  --color-background: #2a2c2e !important;
+  --color-background: var(--color-art-white) !important;
   --color-text-primary: var(--color-ink-primary) !important;
   --color-text-secondary: var(--color-ink-muted) !important;
   --color-border: var(--color-border-subtle) !important;
   --color-border-icon: var(--color-border-subtle) !important;
   --color-border-icon-disabled: var(--color-border-subtle) !important;
-  --color-background-item-hover: #3a3d40 !important;
-  --color-background-item-focus: rgba(255, 255, 255, 0.07) !important;
-  --color-shadow-item-focus: rgba(255, 255, 255, 0.04) !important;
-  --color-shadow: rgba(0, 0, 0, 0.35) !important;
-  --color-background-icon-active: rgba(56, 138, 229, 0.15) !important;
-  --color-text-icon-active: #5fa8ed !important;
-  --color-background-item-confirm: #c62828 !important;
-  --color-background-item-confirm-hover: #a31f1f !important;
+  --color-background-item-hover: var(--color-art-black) !important;
+  --color-background-item-focus: var(--color-art-black) !important;
+  --color-shadow-item-focus: rgba(19, 16, 22, 0.12) !important;
+  --color-shadow: rgba(19, 16, 22, 0.18) !important;
+  --color-background-icon-active: rgba(250, 74, 58, 0.18) !important;
+  --color-text-icon-active: var(--color-art-red) !important;
+  --color-background-item-confirm: var(--color-art-red) !important;
+  --color-background-item-confirm-hover: #d93b2d !important;
 }
 
 .ce-popover__container {
-  background: #2a2c2e !important;
-  border-color: #505356 !important;
+  background: var(--color-art-white) !important;
+  border-color: var(--color-border-subtle) !important;
 }
 
-.ce-popover-item__title {
+.ce-popover-item__title,
+.ce-popover-header__text,
+.ce-popover-header__back-button,
+.ce-popover__nothing-found-message {
   color: var(--color-ink-primary) !important;
 }
 
 .ce-popover-item__icon {
   color: var(--color-ink-primary) !important;
-  background: #333638 !important;
-  border-color: #505356 !important;
+  background: var(--color-art-white) !important;
+  border-color: var(--color-border-subtle) !important;
   border-radius: 5px;
 }
 
 .ce-popover-item--active .ce-popover-item__icon {
-  color: #5fa8ed !important;
-  background: rgba(56, 138, 229, 0.15) !important;
+  color: var(--color-art-red) !important;
+  background: rgba(250, 74, 58, 0.18) !important;
+}
+
+.ce-popover-item:hover .ce-popover-item__title,
+.ce-popover-item--focused .ce-popover-item__title,
+.ce-popover-item:hover .ce-popover-item__secondary-title,
+.ce-popover-item--focused .ce-popover-item__secondary-title {
+  color: var(--color-art-white) !important;
+}
+
+.ce-popover-item:hover .ce-popover-item__icon,
+.ce-popover-item--focused .ce-popover-item__icon {
+  color: var(--color-art-white) !important;
+  background: var(--color-art-black) !important;
+  border-color: var(--color-art-white) !important;
 }
 
 .ce-popover-item-separator__line {
-  background: #505356 !important;
+  background: var(--color-border-subtle) !important;
 }
 
 /* Search field inside popover */
-.cdx-search-field {
-  background: #333638 !important;
-  border-color: #505356 !important;
+.cdx-search-field,
+.ce-inline-tool-input,
+.cdx-input {
+  background: var(--color-art-white) !important;
+  border-color: var(--color-border-subtle) !important;
+  color: var(--color-ink-primary) !important;
+  box-shadow: none !important;
 }
 
 .cdx-search-field__input {
   color: var(--color-ink-primary) !important;
 }
 
-.cdx-search-field__input::placeholder {
-  color: var(--color-ink-muted) !important;
-}
-
+.cdx-search-field__input::placeholder,
 .cdx-search-field__icon svg {
   color: var(--color-ink-muted) !important;
 }
 
-/* Nothing-found message */
-.ce-popover__nothing-found-message {
-  color: var(--color-ink-muted) !important;
-}
-
-/* ── Inline toolbar ── */
+/* Inline toolbar */
 .ce-inline-toolbar {
-  --color-background-icon-active: rgba(56, 138, 229, 0.15) !important;
-  --color-text-icon-active: #5fa8ed !important;
+  --color-background-icon-active: rgba(250, 74, 58, 0.18) !important;
+  --color-text-icon-active: var(--color-art-red) !important;
   --color-text-primary: var(--color-ink-primary) !important;
 }
 
 .ce-inline-toolbar .ce-popover__container {
-  background: #2a2c2e !important;
-  border-color: #505356 !important;
+  background: var(--color-art-white) !important;
+  border-color: var(--color-border-subtle) !important;
 }
 
-.ce-inline-tool {
-  color: var(--color-ink-primary) !important;
-}
-
-.ce-inline-tool:hover {
-  background: #3a3d40 !important;
-}
-
-.ce-inline-tool--active {
-  color: #5fa8ed !important;
-}
-
-.ce-inline-tool-input {
-  background: #333638 !important;
-  border-color: #505356 !important;
+.ce-inline-tool,
+.cdx-settings-button,
+.cdx-input {
   color: var(--color-ink-primary) !important;
 }
 
 .ce-inline-toolbar__dropdown {
-  border-color: #505356 !important;
+  border-color: var(--color-border-subtle) !important;
 }
 
-.ce-inline-toolbar__dropdown:hover {
-  background: #3a3d40 !important;
-}
-
-/* ── Block selection ── */
-.ce-block--selected .ce-block__content {
-  background: rgba(56, 138, 229, 0.15) !important;
-}
-
-/* ── Settings button (in-block gear items) ── */
-.cdx-settings-button {
-  color: var(--color-ink-primary) !important;
-}
-
+.ce-inline-tool:hover,
+.ce-inline-toolbar__dropdown:hover,
 .cdx-settings-button:hover {
-  background: #3a3d40 !important;
+  color: var(--color-art-white) !important;
+  background: var(--color-art-black) !important;
 }
 
+.ce-inline-tool:hover svg,
+.ce-inline-toolbar__dropdown:hover svg,
+.cdx-settings-button:hover svg {
+  color: var(--color-art-white) !important;
+}
+
+.ce-inline-tool--active,
 .cdx-settings-button--active {
-  color: #5fa8ed !important;
+  color: var(--color-art-red) !important;
 }
 
-/* ── cdx-input (quote text box, etc.) ── */
-.cdx-input {
-  border-color: #505356 !important;
-  background: transparent !important;
-  color: var(--color-ink-primary) !important;
-  box-shadow: none !important;
+/* Keep interactive items fully opaque */
+.ce-popover-item,
+.ce-inline-tool,
+.ce-inline-toolbar__dropdown,
+.cdx-settings-button,
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
+  opacity: 1 !important;
 }
 
-/* ── Popover header (mobile back-button bar) ── */
-.ce-popover-header__text {
-  color: var(--color-ink-primary) !important;
+/* Block selection */
+.ce-block--selected .ce-block__content {
+  background: rgba(19, 16, 22, 0.08) !important;
 }
 
-.ce-popover-header__back-button {
-  color: var(--color-ink-primary) !important;
-}
-
-/* ── Tooltip ── */
+/* Tooltip */
 .ct {
   z-index: 999;
 }
 
-.ct:before {
-  background-color: #2a2c2e !important;
-}
-
+.ct:before,
 .ct:after {
-  background-color: #2a2c2e !important;
+  background-color: var(--color-art-white) !important;
 }
 
 .ct__content {

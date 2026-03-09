@@ -10,12 +10,8 @@ body {
   min-height: 100vh;
   padding: 22px;
   color: var(--color-ink-primary);
-  font-family:
-    "Avenir Next",
-    "Gill Sans",
-    "Trebuchet MS",
-    sans-serif;
-  background-color: var(--color-surface-page);
+  font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+  background-color: var(--color-art-purple);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
