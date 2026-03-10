@@ -16,7 +16,6 @@ pnpm wrangler types
 
 feature  
 [ ] Terms page  
-[ ] Featured banner copies  
 [ ] Upvoting
 
 code  
