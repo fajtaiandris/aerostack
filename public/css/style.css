@@ -7,7 +7,7 @@
 .recipes-page {
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 0 2rem 2rem;
+  padding: 0 var(--rel-space) var(--rel-space);
 }
 
 .recipes-container {
@@ -34,7 +34,7 @@
 .editor-page {
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 0 2rem 2rem;
+  padding: 0 var(--rel-space) var(--rel-space);
 }
 
 .editor-container {
@@ -477,7 +477,7 @@
   background: var(--color-art-pink);
   border: 1px solid var(--color-border-subtle);
   border-radius: 8px;
-  padding: 1.75rem;
+  padding: var(--rel-space);
   margin-bottom: 1.5rem;
   overflow: hidden;
   color: #1a1a1a;
@@ -609,7 +609,7 @@
 .recipe-page {
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 0 2rem 2rem;
+  padding: 0 var(--rel-space) var(--rel-space);
 }
 
 .recipe-view-container {
@@ -622,7 +622,7 @@
   background: var(--color-surface-card);
   border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
-  padding: 2rem;
+  padding: var(--rel-space);
 }
 
 .rv-header {
@@ -753,10 +753,10 @@
 /* ---- Recipe Comments (Giscus) ---- */
 
 .rv-comments {
-  margin-top: 4rem;
+  margin-top: calc(2 * var(--rel-space));
   border: 1px solid var(--color-art-black);
   background-color: var(--color-art-white);
-  padding: 2rem;
+  padding: var(--rel-space);
 }
 
 .rv-comments h2 {

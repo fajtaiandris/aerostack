@@ -1,5 +1,5 @@
 header {
-  padding: 2rem;
+  padding: var(--rel-space);
   display: flex;
   justify-content: space-between;
   align-items: start;
@@ -121,7 +121,7 @@ header:has(.back-btn) {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 2rem;
+  padding: var(--rel-space);
 }
 
 .menu-overlay nav {
