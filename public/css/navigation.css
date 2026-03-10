@@ -29,10 +29,7 @@ header:has(.back-btn) {
   margin: 0;
   padding: 0.35rem 0.9rem 0.26rem;
   color: var(--color-art-white);
-  font-family:
-    "Avenir Next",
-    "Trebuchet MS",
-    sans-serif;
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
   font-size: clamp(1.9rem, 4vw, 2.6rem);
   font-weight: 800;
   line-height: 1;
@@ -154,4 +151,18 @@ header:has(.back-btn) {
 .menu-overlay nav ul li a:hover {
   opacity: 0.5;
   font-style: italic;
+}
+
+footer {
+  background-color: var(--color-art-black);
+  color: lightgrey;
+  border-top: 1px solid var(--color-art-black);
+  text-align: center;
+  padding: 0.5rem 0;
+  font-size: 0.8rem;
+  margin-top: 2rem;
+}
+
+footer a {
+  color: var(--color-art-red);
 }
