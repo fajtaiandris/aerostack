@@ -16,11 +16,9 @@ pnpm wrangler types
 
 feature  
 [ ] Terms page  
-[ ] Upvoting
-
-code  
-[ ] refactoring the css  
-[ ] slug length validation
+[ ] Upvoting  
+[ ] Loading states
+[ ] refactoring the css
 
 chore  
 [ ] Caching and rate limits  

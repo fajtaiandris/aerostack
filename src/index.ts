@@ -9,8 +9,17 @@ import { updateRecipeByHash } from "./edit/recipe";
 import { ssrEditRecipePage } from "./edit/page";
 import { ogImage } from "./og-image";
 import { faviconImage } from "./favicon";
+import { SECURITY_HEADERS } from "./security/headers";
 
 const app = new Hono<{ Bindings: Env }>();
+
+app.use("*", async (c, next) => {
+  await next();
+
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    c.header(name, value);
+  }
+});
 
 app.get("/api/recipes", search);
 app.get("/api/og-image", ogImage);
