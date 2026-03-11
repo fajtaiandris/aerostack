@@ -15,7 +15,12 @@ export const createRecipe = async (c: Context<{ Bindings: Env }>) => {
 
     const slug = generateRecipeSlug(title, author);
     if (!isValidRecipeSlug(slug)) {
-      return c.json({ error: "Invalid recipe title or author" }, 400);
+      return c.json(
+        {
+          error: `Title or author is too long or not allowed characters.`,
+        },
+        400,
+      );
     }
     const editHash = await createUniqueEditHash(c);
     const initialStatus: RecipeStatus = "pending_curation";

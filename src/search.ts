@@ -1,5 +1,9 @@
 import { Context } from "hono";
 
+const MAX_SEARCH_QUERY_LENGTH = 120;
+const MAX_TAG_FILTERS = 20;
+const MAX_TAG_LENGTH = 48;
+
 export const search = async (c: Context<{ Bindings: Env }>) => {
   const url = new URL(c.req.url);
 
@@ -11,7 +15,9 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
       ? "ORDER BY r.view_count DESC, r.created_at DESC"
       : "ORDER BY r.created_at DESC";
 
-  const qRaw = (url.searchParams.get("q") || "").trim();
+  const qRaw = (url.searchParams.get("q") || "")
+    .trim()
+    .slice(0, MAX_SEARCH_QUERY_LENGTH);
   const q = qRaw ? `%${qRaw.toLowerCase()}%` : null;
 
   const tagsParam = (url.searchParams.get("tags") || "").trim();
@@ -19,7 +25,8 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
     ? tagsParam
         .split(",")
         .map((s) => s.trim())
-        .filter(Boolean)
+        .filter((tag) => tag.length > 0 && tag.length <= MAX_TAG_LENGTH)
+        .slice(0, MAX_TAG_FILTERS)
     : [];
 
   const tagsMode = (url.searchParams.get("tags_mode") || "all").toLowerCase();
@@ -29,7 +36,7 @@ export const search = async (c: Context<{ Bindings: Env }>) => {
 
   // ---- Build dynamic WHERE + params (search only title + author) ----
   const where: string[] = [];
-  const params = [];
+  const params: unknown[] = [];
 
   // Hidden recipes should not appear in search.
   where.push("(r.status IS NULL OR r.status IN ('pending_curation', 'live'))");

@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { Recipe } from "../types";
+import { isValidRecipeSlug, normalizeRecipeSlug } from "../recipe-slug";
 import { formatViews, normalizeNonNegativeInt, trackRecipeView } from "./view-count";
 
 const timeAgo = (dateStr: string) => {
@@ -15,7 +15,10 @@ const timeAgo = (dateStr: string) => {
 
 export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
   try {
-    const slug = c.req.param("slug");
+    const slug = normalizeRecipeSlug(c.req.param("slug"));
+    if (!isValidRecipeSlug(slug)) {
+      return redirectToSearch(c);
+    }
 
     const recipeRow = await c.env.aerostack_db
       .prepare(
@@ -41,17 +44,19 @@ export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
 
     if (!recipeRow) {
       const query = slug.replace(/[-_]/g, " ");
-      const url = new URL("/search", c.req.url);
-      url.searchParams.set("q", query);
-
-      return c.redirect(url.toString(), 302);
+      return redirectToSearch(c, query);
     }
 
     const asset = await c.env.ASSETS.fetch(
       new Request(new URL("/recipe/_recipe.template.html", c.req.url)),
     );
 
-    const recipe: Recipe = recipeRow as unknown as Recipe;
+    const title = String(recipeRow.title ?? "");
+    const author = String(recipeRow.author ?? "");
+    const markdown = String(recipeRow.markdown ?? "");
+    const createdAt = String(recipeRow.created_at ?? "");
+    const tags = parseRecipeTags(recipeRow.tags);
+
     let viewCount = normalizeNonNegativeInt(recipeRow.view_count);
 
     const recipeId = Number(recipeRow.id);
@@ -64,31 +69,62 @@ export const ssrRecipe = async (c: Context<{ Bindings: Env }>) => {
     }
 
     let html = await asset.text();
-    const ogImageUrl = `/api/og-image?seed=${encodeURIComponent(recipe.title)}`;
+    const ogImageUrl = `/api/og-image?seed=${encodeURIComponent(title)}`;
 
-    html = html.replaceAll("{{title}}", recipe.title);
-    html = html.replaceAll("{{author}}", recipe.author);
-    html = html.replaceAll("{{ogImage}}", ogImageUrl);
-    html = html.replaceAll("{{timeAgo}}", timeAgo(recipe.created_at));
+    html = html.replaceAll("{{title}}", escapeHtml(title));
+    html = html.replaceAll("{{author}}", escapeHtml(author));
+    html = html.replaceAll("{{ogImage}}", escapeAttribute(ogImageUrl));
+    html = html.replaceAll("{{timeAgo}}", timeAgo(createdAt));
     html = html.replaceAll("{{views}}", formatViews(viewCount));
-    html = html.replaceAll("{{content}}", escapeAttribute(recipe.markdown));
-    html = html.replaceAll(
-      "{{tags}}",
-      (JSON.parse(recipeRow.tags as string) as { id: number; name: string }[])
-        .map((t) => `<span class="rv-tag">${t.name}</span>`)
-        .join(""),
-    );
+    html = html.replaceAll("{{content}}", escapeAttribute(markdown));
+    html = html.replaceAll("{{tags}}", renderTagHtml(tags));
     return c.html(html);
-  } catch (err) {
-    const url = new URL("/search", c.req.url);
-    return c.redirect(url.toString(), 302);
+  } catch {
+    return redirectToSearch(c);
   }
 };
 
-function escapeAttribute(value: string) {
-  return value
+const redirectToSearch = (
+  c: Context<{ Bindings: Env }>,
+  query?: string,
+) => {
+  const url = new URL("/search", c.req.url);
+  const normalizedQuery = String(query ?? "").trim();
+  if (normalizedQuery) {
+    url.searchParams.set("q", normalizedQuery);
+  }
+
+  return c.redirect(url.toString(), 302);
+};
+
+const parseRecipeTags = (raw: unknown): string[] => {
+  try {
+    const parsed = JSON.parse(String(raw));
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .filter(
+        (tag): tag is { name: unknown } =>
+          Boolean(tag) && typeof tag === "object" && "name" in tag,
+      )
+      .map((tag) => String(tag.name || "").trim())
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+};
+
+const renderTagHtml = (tags: string[]) =>
+  tags.map((tag) => `<span class="rv-tag">${escapeHtml(tag)}</span>`).join("");
+
+const escapeHtml = (value: string) =>
+  value
     .replace(/&/g, "&amp;")
     .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+
+function escapeAttribute(value: string) {
+  return escapeHtml(value);
 }

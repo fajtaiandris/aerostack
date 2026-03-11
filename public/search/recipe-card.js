@@ -1,3 +1,5 @@
+const MAX_RENDERED_TAGS = 24;
+
 class RecipeCard extends HTMLElement {
   static get observedAttributes() {
     return [
@@ -124,28 +126,43 @@ class RecipeCard extends HTMLElement {
 
     try {
       const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
+      if (!Array.isArray(parsed)) return [];
+
+      return parsed
+        .filter((tag) => typeof tag === "string")
+        .map((tag) => tag.trim())
+        .filter(Boolean)
+        .slice(0, MAX_RENDERED_TAGS);
     } catch {
       return [];
     }
   }
 
+  _escapeHtml(rawValue) {
+    return String(rawValue)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   render() {
-    const title = this.getAttribute("title") || "";
-    const author = this.getAttribute("author") || "";
+    const title = this._escapeHtml(this.getAttribute("title") || "");
+    const author = this._escapeHtml(this.getAttribute("author") || "");
     const date = this.getAttribute("date") || "";
     const views = this._parseViews();
-    // const recipeId = this.getAttribute("recipe-id") || "";
-    const slug = this.getAttribute("slug") || "";
+    const slug = String(this.getAttribute("slug") || "").trim();
+    const href = slug ? `/recipe/${encodeURIComponent(slug)}` : "/search";
     const tags = this._parseTags();
 
     const tagsHTML = tags
-      .map((tag) => `<span class="tag">${tag}</span>`)
+      .map((tag) => `<span class="tag">${this._escapeHtml(tag)}</span>`)
       .join("");
 
     this.shadowRoot.innerHTML = `
       <style>${this._styles}</style>
-      <a href="/recipe/${slug}">
+      <a href="${href}">
         <div class="card">
           <div class="body">
             <div class="title">${title}</div>

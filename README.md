@@ -24,6 +24,5 @@ code
 
 chore  
 [ ] Caching and rate limits  
-[ ] Injection safeguards  
 [ ] Meta updates  
 [ ] Cookie consent
